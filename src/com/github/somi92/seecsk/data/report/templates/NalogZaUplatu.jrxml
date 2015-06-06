@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="NalogZaUplatu" language="groovy" pageWidth="660" pageHeight="320" orientation="Landscape" columnWidth="660" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="0f9e7572-26e6-4f2b-bb22-3c1a435a0969">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="uplatilac" class="java.lang.String">
+		<fieldDescription><![CDATA[uplatilac]]></fieldDescription>
+	</field>
+	<field name="svrhaUplate" class="java.lang.String">
+		<fieldDescription><![CDATA[svrhaUplate]]></fieldDescription>
+	</field>
+	<field name="primalac" class="java.lang.String">
+		<fieldDescription><![CDATA[primalac]]></fieldDescription>
+	</field>
+	<field name="iznos" class="java.lang.String">
+		<fieldDescription><![CDATA[iznos]]></fieldDescription>
+	</field>
+	<field name="racunPrimaoca" class="java.lang.String">
+		<fieldDescription><![CDATA[racunPrimaoca]]></fieldDescription>
+	</field>
+	<field name="model" class="java.lang.String">
+		<fieldDescription><![CDATA[model]]></fieldDescription>
+	</field>
+	<field name="pozivNaBroj" class="java.lang.String">
+		<fieldDescription><![CDATA[pozivNaBroj]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="314" splitType="Stretch">
+			<textField>
+				<reportElement x="33" y="115" width="240" height="40" uuid="92403b45-e272-4a69-9d2f-d00d386f438e"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true" pdfEncoding="Cp1250"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{svrhaUplate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="33" y="184" width="240" height="40" uuid="a1248c4b-cdc7-4850-8908-abf4fd0b9526"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true" pdfEncoding="Cp1250"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{primalac}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="33" y="96" width="100" height="20" uuid="739bfaec-806b-4e3c-99c9-50609e99eb6e"/>
+				<textElement>
+					<font fontName="SansSerif" isBold="true" pdfEncoding="Cp1250"/>
+				</textElement>
+				<text><![CDATA[svrha uplate]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="33" y="164" width="100" height="20" uuid="30785448-4804-4372-becf-ef79cc7b1fa9"/>
+				<textElement>
+					<font fontName="SansSerif" isBold="true" pdfEncoding="Cp1250"/>
+				</textElement>
+				<text><![CDATA[primalac]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="309" y="58" width="50" height="20" uuid="a4f5edea-4125-40df-8d23-e428b909d157"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="SansSerif" isBold="true" pdfEncoding="Cp1250"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="379" y="58" width="50" height="20" uuid="1d0c98d9-556e-4a86-8c9d-fe3220b03881"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="SansSerif" size="12" isBold="true" pdfEncoding="Cp1250"/>
+				</textElement>
+				<text><![CDATA[RSD]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="309" y="106" width="315" height="20" uuid="b6bbebb8-7b7f-4a4b-b4a2-c190659e4f7d"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="11" isBold="true" pdfEncoding="Cp1250"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{racunPrimaoca}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="447" y="58" width="177" height="20" uuid="94235ad7-1597-41e5-8ad4-9dfc7af2a3be"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="11" isBold="true" pdfEncoding="Cp1250"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{iznos}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="309" y="155" width="50" height="20" uuid="6c40f187-9f77-46dd-a154-41569e834ae8"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="11" isBold="true" pdfEncoding="Cp1250"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{model}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="379" y="155" width="245" height="20" uuid="8c5249ac-c641-464a-bc43-6bc4108b4149"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="11" isBold="true" pdfEncoding="Cp1250"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pozivNaBroj}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="309" y="87" width="98" height="20" uuid="98f3a130-7f7e-448c-a854-34c63c160d4e"/>
+				<textElement>
+					<font fontName="SansSerif" isBold="true" pdfEncoding="Cp1250"/>
+				</textElement>
+				<text><![CDATA[račun primaoca]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="309" y="135" width="189" height="20" uuid="70ce8809-6d82-491d-a86a-a7324cfc70a9"/>
+				<textElement>
+					<font fontName="SansSerif" isBold="true" pdfEncoding="Cp1250"/>
+				</textElement>
+				<text><![CDATA[model i poziv na broj (odobrenje)]]></text>
+			</staticText>
+			<line>
+				<reportElement x="33" y="251" width="151" height="1" uuid="2a69d6ce-8b19-4436-aeea-8578e14356d8"/>
+			</line>
+			<line>
+				<reportElement x="149" y="285" width="124" height="1" uuid="0150813a-9a97-425b-9341-7dd83854353e"/>
+			</line>
+			<line>
+				<reportElement x="309" y="284" width="124" height="1" uuid="18c7db5a-f928-44a3-b34e-c3c35fa37d18"/>
+			</line>
+			<staticText>
+				<reportElement x="33" y="252" width="168" height="20" uuid="32c63bc6-60ed-4700-8a61-c63016fb73e8"/>
+				<textElement>
+					<font fontName="SansSerif" size="8" isBold="true" pdfEncoding="Cp1250"/>
+				</textElement>
+				<text><![CDATA[pečat i potpis uplatioca]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="307" y="285" width="100" height="20" uuid="b4cadaec-9654-4a41-8d71-7cfaebe33b43"/>
+				<textElement>
+					<font fontName="SansSerif" size="8" isBold="true" pdfEncoding="Cp1250"/>
+				</textElement>
+				<text><![CDATA[datum valute]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="149" y="286" width="124" height="20" uuid="c67c56f9-5b80-48c3-8733-4b6d8b177103"/>
+				<textElement>
+					<font fontName="SansSerif" size="8" isBold="true" pdfEncoding="Cp1250"/>
+				</textElement>
+				<text><![CDATA[mesto i datum prijema]]></text>
+			</staticText>
+			<line>
+				<reportElement x="14" y="305" width="630" height="1" uuid="23de642c-6338-4bd2-a840-1e068a4f428c"/>
+			</line>
+			<textField>
+				<reportElement x="33" y="48" width="240" height="40" uuid="3f3988ee-44f2-46c3-8885-8850e6114907"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true" pdfEncoding="Cp1250"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{uplatilac}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="292" y="48" width="1" height="176" uuid="02ece45b-d832-486c-813e-5b4e959fe2fc"/>
+			</line>
+			<staticText>
+				<reportElement x="33" y="28" width="100" height="20" uuid="a005e34e-be52-453c-8d64-3136f9942f75"/>
+				<textElement>
+					<font fontName="SansSerif" isBold="true" pdfEncoding="Cp1250"/>
+				</textElement>
+				<text><![CDATA[uplatilac]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="309" y="28" width="55" height="30" uuid="7ad3f41c-b10c-43bb-ab1e-bd1d63c8a07c"/>
+				<textElement>
+					<font fontName="SansSerif" isBold="true" pdfEncoding="Cp1250"/>
+				</textElement>
+				<text><![CDATA[šifra plaćanja]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="379" y="38" width="55" height="20" uuid="116a05a3-d71e-4fbd-9414-24136b07c3df"/>
+				<textElement>
+					<font fontName="SansSerif" isBold="true" pdfEncoding="Cp1250"/>
+				</textElement>
+				<text><![CDATA[valuta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="447" y="38" width="55" height="20" uuid="8c11a68f-3eb1-4fae-85c8-fba5142ef1a0"/>
+				<textElement>
+					<font fontName="SansSerif" isBold="true" pdfEncoding="Cp1250"/>
+				</textElement>
+				<text><![CDATA[iznos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="492" y="18" width="132" height="20" uuid="677bb55c-4ff7-47d8-b6e0-561961bb414a"/>
+				<textElement>
+					<font fontName="SansSerif" size="12" isBold="true" pdfEncoding="Cp1250"/>
+				</textElement>
+				<text><![CDATA[NALOG ZA UPLATU]]></text>
+			</staticText>
+			<line>
+				<reportElement x="14" y="5" width="1" height="301" uuid="5ed0cb61-5741-4a4e-b942-e7e423c2ecc5"/>
+			</line>
+			<line>
+				<reportElement x="644" y="6" width="1" height="300" uuid="806d0985-6776-42fd-bf91-aba0573252e7"/>
+			</line>
+			<line>
+				<reportElement x="15" y="5" width="629" height="1" uuid="49769a40-e929-41e8-a08d-510bf021604d"/>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
