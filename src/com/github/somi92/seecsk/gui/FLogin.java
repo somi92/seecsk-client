@@ -171,7 +171,9 @@ public class FLogin extends javax.swing.JFrame {
             OdgovorObjekat oo = ServerInstance.vratiInstancu().vratiOdgovor();
             refZaposleni = oo.getPodaci();
             if(oo.getStatusOperacije()==0) {
-                JOptionPane.showMessageDialog(this, "OK! "+refZaposleni.get());
+//                JOptionPane.showMessageDialog(this, "OK! "+refZaposleni.get());
+                new FMainForm().setVisible(true);
+                dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Greška! Kombinacija korisničko ime/šifra nije ispravna. Nemate pristup sistemu.");
             }
