@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -47,6 +49,10 @@ public class ServerInstance {
     
     public void posaljiZahtev(ZahtevObjekat zo) {
         try {
+//            if(in==null || out==null) {
+//                in = new ObjectInputStream(this.socket.getInputStream());
+//                out = new ObjectOutputStream(this.socket.getOutputStream());
+//            }
             out.writeObject(zo);
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -55,6 +61,10 @@ public class ServerInstance {
     
     public OdgovorObjekat vratiOdgovor() {
         try {
+//            if(in==null || out==null) {
+//                in = new ObjectInputStream(this.socket.getInputStream());
+//                out = new ObjectOutputStream(this.socket.getOutputStream());
+//            }
             return (OdgovorObjekat) in.readObject();
         } catch (IOException ex) {
             ex.printStackTrace();
