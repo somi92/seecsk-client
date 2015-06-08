@@ -12,12 +12,16 @@ import com.github.somi92.seecsk.domain.Grupa;
 import com.github.somi92.seecsk.domain.Uplata;
 import com.github.somi92.seecsk.gui.panels.MembersPanel;
 import com.github.somi92.seecsk.model.tables.trening.PrisustvaClanTableModel;
-import com.github.somi92.seecsk.model.tables.trening.PrisustvaTableEditor;
 import com.github.somi92.seecsk.model.tables.trening.PrisustvaTableRenderer;
 import com.github.somi92.seecsk.model.tables.uplata.UplateTableClanarinaEditor;
 import com.github.somi92.seecsk.model.tables.uplata.UplateTableModel;
 import com.github.somi92.seecsk.model.tables.uplata.UplateTableModelDatumEditor;
+import com.github.somi92.seecsk.server.ServerInstance;
+import com.github.somi92.seecsk.transfer.OdgovorObjekat;
+import com.github.somi92.seecsk.transfer.ZahtevObjekat;
 import com.github.somi92.seecsk.util.Constants;
+import com.github.somi92.seecsk.util.Ref;
+import com.github.somi92.seecsk.util.SistemskeOperacije;
 import java.awt.Color;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -515,8 +519,16 @@ public class FNewMember extends javax.swing.JDialog {
         boolean isValidated = validateInput(idClana, imePrezime, email, adresa, brojTel);
         if(isValidated) { 
             if(clan == null ) {
+                
                 Ref<Clan> c = new Ref(new Clan());
-                KontrolerPL.kreirajClana(c);
+//                KontrolerPL.kreirajClana(c);
+                ZahtevObjekat zo = new ZahtevObjekat();
+                zo.setSistemskaOperacija(SistemskeOperacije.SO_KREIRAJ_CLANA);
+                zo.setParametar(c);
+                ServerInstance.vratiInstancu().posaljiZahtev(zo);
+                OdgovorObjekat oo = ServerInstance.vratiInstancu().vratiOdgovor();
+                c = oo.getPodaci();
+                
                 clan = c.get();
             }
 //            Clan clan = new Clan(idClana, imePrezime, pol, email, brojTel, datumRodjenja.getTime(), datumUclanjenja.getTime(), napomena);
@@ -544,7 +556,16 @@ public class FNewMember extends javax.swing.JDialog {
             
             clan.setUplate(uplataTabele);
             
-            boolean res = KontrolerPL.sacuvajIliAzurirajClana(clan, uplateBrisanje);
+            ZahtevObjekat zo = new ZahtevObjekat();
+            zo.setSistemskaOperacija(SistemskeOperacije.SO_ZAPAMTI_CLANA);
+            zo.setParametar(clan);
+            zo.setUplateZaBrisanje(uplateBrisanje);
+            ServerInstance.vratiInstancu().posaljiZahtev(zo);
+            OdgovorObjekat oo = ServerInstance.vratiInstancu().vratiOdgovor();
+            int status = oo.getStatusOperacije();
+            boolean res = (status==0);
+            
+//            boolean res = KontrolerPL.sacuvajIliAzurirajClana(clan, uplateBrisanje);
             if(res) {
                 JOptionPane.showMessageDialog(this, "Član je uspešno zapamćen.");
                 caller.azurirajTabelu();
@@ -728,7 +749,16 @@ public class FNewMember extends javax.swing.JDialog {
     
     private void initGroupsCombo() {
         Ref<List<Grupa>> ref = new Ref(new ArrayList<>());
-        KontrolerPL.vratiListuGrupa(ref, false);
+        
+//        KontrolerPL.vratiListuGrupa(ref, false);
+        ZahtevObjekat zo = new ZahtevObjekat();
+        zo.setSistemskaOperacija(SistemskeOperacije.SO_VRATI_LISTU_GRUPA);
+        zo.setUcitajListe(false);
+        zo.setParametar(ref);
+        ServerInstance.vratiInstancu().posaljiZahtev(zo);
+        OdgovorObjekat oo = ServerInstance.vratiInstancu().vratiOdgovor();
+        ref = oo.getPodaci();
+        
         List<Grupa> groups = ref.get();
         for(Grupa g : groups) {
             jcmbGroup.addItem(g);
@@ -771,7 +801,16 @@ public class FNewMember extends javax.swing.JDialog {
         List<Clanarina> sample = new ArrayList<>();
         sample.add(new Clanarina());
         Ref<List<Clanarina>> clanarineRef = new Ref(sample);
-        KontrolerPL.vratiClanarine(clanarineRef, null, false);
+        
+        ZahtevObjekat zo = new ZahtevObjekat();
+        zo.setSistemskaOperacija(SistemskeOperacije.SO_PRONADJI_CLANARINE);
+        zo.setUcitajListe(false);
+        zo.setParametar(clanarineRef);
+        ServerInstance.vratiInstancu().posaljiZahtev(zo);
+        OdgovorObjekat oo = ServerInstance.vratiInstancu().vratiOdgovor();
+        clanarineRef = oo.getPodaci();
+//        KontrolerPL.vratiClanarine(clanarineRef, null, false);
+        
         TableColumnModel tcmUplate = jtblUplate.getColumnModel();
         TableColumn tcUplate = tcmUplate.getColumn(0);
         TableColumnModel tcmPrisustva = jtblPrisustva.getColumnModel();

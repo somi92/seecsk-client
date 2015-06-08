@@ -11,6 +11,11 @@ import com.github.somi92.seecsk.domain.Clanarina;
 import com.github.somi92.seecsk.gui.FNewMember;
 import com.github.somi92.seecsk.model.tables.clan.ClanoviTableModel;
 import com.github.somi92.seecsk.model.tables.clan.ClanoviTableRenderer;
+import com.github.somi92.seecsk.server.ServerInstance;
+import com.github.somi92.seecsk.transfer.OdgovorObjekat;
+import com.github.somi92.seecsk.transfer.ZahtevObjekat;
+import com.github.somi92.seecsk.util.Ref;
+import com.github.somi92.seecsk.util.SistemskeOperacije;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -252,8 +257,14 @@ public class MembersPanel extends javax.swing.JPanel {
         } else {
             int response = JOptionPane.showConfirmDialog(this, "Jeste li sigurni da želite izbrisati izabranog člana?", "Potvrdite izbor", JOptionPane.OK_CANCEL_OPTION);
             if(response == JOptionPane.OK_OPTION) {
-                //                KolekcijaClanova.vratiInstancu().obrisiClana(row);
-                boolean res = KontrolerPL.obrisiClana(clanoviTableModel.vratiClanoveTabele().get(row));
+                
+                ZahtevObjekat zo = new ZahtevObjekat();
+                zo.setSistemskaOperacija(SistemskeOperacije.SO_OBRISI_CLANA);
+                zo.setParametar(clanoviTableModel.vratiClanoveTabele().get(row));
+                ServerInstance.vratiInstancu().posaljiZahtev(zo);
+                OdgovorObjekat oo = ServerInstance.vratiInstancu().vratiOdgovor();
+                boolean res = oo.getStatusOperacije()==0;
+//                boolean res = KontrolerPL.obrisiClana(clanoviTableModel.vratiClanoveTabele().get(row));
                 if(res) {
                     azurirajTabelu();
                 }
@@ -291,7 +302,15 @@ public class MembersPanel extends javax.swing.JPanel {
 //        List<Clan> lc = KolekcijaClanova.vratiInstancu().vratiSveClanove();
 //        List<Clan> lc = new ArrayList<>();
         Ref<List<Clan>> ref = new Ref(new ArrayList<>());
-        KontrolerPL.vratiListuClanova(ref, true);
+        
+        ZahtevObjekat zo = new ZahtevObjekat();
+        zo.setSistemskaOperacija(SistemskeOperacije.SO_VRATI_LISTU_CLANOVA);
+        zo.setUcitajListe(true);
+        zo.setParametar(ref);
+        ServerInstance.vratiInstancu().posaljiZahtev(zo);
+        OdgovorObjekat oo = ServerInstance.vratiInstancu().vratiOdgovor();
+        ref = oo.getPodaci();
+//        KontrolerPL.vratiListuClanova(ref, true);
         azurirajTabelu(ref.get());
     }
     
@@ -311,7 +330,15 @@ public class MembersPanel extends javax.swing.JPanel {
         String filter = criteria.toUpperCase();
 //        List<Clan> sourceList = KolekcijaClanova.vratiInstancu().vratiSveClanove();
         Ref<List<Clan>> ref = new Ref<>(new ArrayList<Clan>());
-        KontrolerPL.vratiListuClanova(ref, true);
+        
+        ZahtevObjekat zo = new ZahtevObjekat();
+        zo.setSistemskaOperacija(SistemskeOperacije.SO_VRATI_LISTU_CLANOVA);
+        zo.setUcitajListe(true);
+        zo.setParametar(ref);
+        ServerInstance.vratiInstancu().posaljiZahtev(zo);
+        OdgovorObjekat oo = ServerInstance.vratiInstancu().vratiOdgovor();
+        ref = oo.getPodaci();
+//        KontrolerPL.vratiListuClanova(ref, true);
         List<Clan> sourceList = ref.get();
         List<Clan> resultList = new ArrayList<>();
         
@@ -379,7 +406,16 @@ public class MembersPanel extends javax.swing.JPanel {
         if(jtbtnDebt.isSelected()) {
             clanoviTableModel.setMark(true);
             Ref<List<Clanarina>> clanarine = new Ref(new ArrayList<>());
-            KontrolerPL.vratiClanarine(clanarine, null, false);
+            
+            ZahtevObjekat zo = new ZahtevObjekat();
+            zo.setSistemskaOperacija(SistemskeOperacije.SO_PRONADJI_CLANARINE);
+            zo.setUcitajListe(false);
+            zo.setKriterijumPretrage(null);
+            zo.setParametar(clanarine);
+            ServerInstance.vratiInstancu().posaljiZahtev(zo);
+            OdgovorObjekat oo = ServerInstance.vratiInstancu().vratiOdgovor();
+            clanarine = oo.getPodaci();
+//            KontrolerPL.vratiClanarine(clanarine, null, false);
             clanoviTableModel.postaviClanarine(clanarine.get());
         } else {
             clanoviTableModel.setMark(false);

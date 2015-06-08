@@ -10,10 +10,16 @@ import com.github.somi92.seecsk.domain.Clan;
 import com.github.somi92.seecsk.domain.Grupa;
 import com.github.somi92.seecsk.domain.Prisustvo;
 import com.github.somi92.seecsk.domain.Trening;
+import com.github.somi92.seecsk.server.ServerInstance;
+import com.github.somi92.seecsk.transfer.OdgovorObjekat;
+import com.github.somi92.seecsk.transfer.ZahtevObjekat;
+import com.github.somi92.seecsk.util.Ref;
+import com.github.somi92.seecsk.util.SistemskeOperacije;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
 
@@ -161,7 +167,14 @@ public class FNewTraining extends javax.swing.JDialog {
             trening = new Trening();
             trening.setGrupa(grupa);
             Ref<Trening> treningRef = new Ref(trening);
-            KontrolerPL.kreirajTrening(treningRef);
+            
+            ZahtevObjekat zo = new ZahtevObjekat();
+            zo.setSistemskaOperacija(SistemskeOperacije.SO_KREIRAJ_TRENING);
+            zo.setParametar(treningRef);
+            ServerInstance.vratiInstancu().posaljiZahtev(zo);
+            OdgovorObjekat oo = ServerInstance.vratiInstancu().vratiOdgovor();
+            treningRef = oo.getPodaci();
+//            KontrolerPL.kreirajTrening(treningRef);
             trening = treningRef.get();
         }
         trening.setDatumVreme(datum);
@@ -171,7 +184,17 @@ public class FNewTraining extends javax.swing.JDialog {
             initAttendance();
         }
         
-        KontrolerPL.sacuvajIliAzurirajTrening(trening);
+        ZahtevObjekat zo = new ZahtevObjekat();
+        zo.setSistemskaOperacija(SistemskeOperacije.SO_ZAPAMTI_TRENING);
+        zo.setParametar(trening);
+        ServerInstance.vratiInstancu().posaljiZahtev(zo);
+        OdgovorObjekat oo = ServerInstance.vratiInstancu().vratiOdgovor();
+        if(oo.getStatusOperacije()==0) {
+            JOptionPane.showMessageDialog(this, "Trening je uspešno sačuvan.");
+        } else {
+            JOptionPane.showMessageDialog(this, "Greška! Trening nije uspešno sačuvan!");
+        }
+//        KontrolerPL.sacuvajIliAzurirajTrening(trening);
         dispose();
     }//GEN-LAST:event_jbtnSaveActionPerformed
 
@@ -218,7 +241,16 @@ public class FNewTraining extends javax.swing.JDialog {
         Ref<List<Clan>> clanoviRef = new Ref(clanovi);
         List<String> kriterijumPretrage = new ArrayList<>();
         kriterijumPretrage.add("grupa");
-        KontrolerPL.pronadjiClanove(clanoviRef, kriterijumPretrage, false);
+        
+        ZahtevObjekat zo = new ZahtevObjekat();
+        zo.setSistemskaOperacija(SistemskeOperacije.SO_PRONADJI_CLANOVE);
+        zo.setKriterijumPretrage(kriterijumPretrage);
+        zo.setUcitajListe(false);
+        zo.setParametar(clanoviRef);
+        ServerInstance.vratiInstancu().posaljiZahtev(zo);
+        OdgovorObjekat oo = ServerInstance.vratiInstancu().vratiOdgovor();
+        clanoviRef = oo.getPodaci();
+//        KontrolerPL.pronadjiClanove(clanoviRef, kriterijumPretrage, false);
         clanovi = clanoviRef.get();
         
         List<Prisustvo> prisustva = new ArrayList<>();

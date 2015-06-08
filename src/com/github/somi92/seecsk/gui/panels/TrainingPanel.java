@@ -14,6 +14,11 @@ import com.github.somi92.seecsk.model.tables.trening.PrisustvaTableEditor;
 import com.github.somi92.seecsk.model.tables.trening.PrisustvaTableModel;
 import com.github.somi92.seecsk.model.tables.trening.PrisustvaTableRenderer;
 import com.github.somi92.seecsk.model.tables.trening.TreningTableModel;
+import com.github.somi92.seecsk.server.ServerInstance;
+import com.github.somi92.seecsk.transfer.OdgovorObjekat;
+import com.github.somi92.seecsk.transfer.ZahtevObjekat;
+import com.github.somi92.seecsk.util.Ref;
+import com.github.somi92.seecsk.util.SistemskeOperacije;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultCellEditor;
@@ -313,7 +318,14 @@ public class TrainingPanel extends javax.swing.JPanel {
             int response = JOptionPane.showConfirmDialog(this, "Jeste li sigurni da želite izbrisati izabranog člana?",
                 "Potvrdite izbor", JOptionPane.OK_CANCEL_OPTION);
             if(response == JOptionPane.OK_OPTION) {
-                boolean res = KontrolerPL.obrisiTrening(ttm.vratiTreningeTabele().get(row));
+                
+                ZahtevObjekat zo = new ZahtevObjekat();
+                zo.setSistemskaOperacija(SistemskeOperacije.SO_OBRISI_TRENING);
+                zo.setParametar(ttm.vratiTreningeTabele().get(row));
+                ServerInstance.vratiInstancu().posaljiZahtev(zo);
+                OdgovorObjekat oo = ServerInstance.vratiInstancu().vratiOdgovor();
+                boolean res = oo.getStatusOperacije()==0;
+//                boolean res = KontrolerPL.obrisiTrening(ttm.vratiTreningeTabele().get(row));
                 if(res) {
                     setTrainig();
                     ptm.postaviPrisustvaTabele(new ArrayList<>());
@@ -332,7 +344,18 @@ public class TrainingPanel extends javax.swing.JPanel {
         Trening trening = ttm.vratiTreningeTabele().get(trainingRow);
         List<Prisustvo> prisustva = ptm.vratiPrisustvaTabele();
         trening.setPrisustva(prisustva);
-        KontrolerPL.sacuvajIliAzurirajTrening(trening);
+        
+        ZahtevObjekat zo = new ZahtevObjekat();
+        zo.setSistemskaOperacija(SistemskeOperacije.SO_ZAPAMTI_TRENING);
+        zo.setParametar(trening);
+        ServerInstance.vratiInstancu().posaljiZahtev(zo);
+        OdgovorObjekat oo = ServerInstance.vratiInstancu().vratiOdgovor();
+        if(oo.getStatusOperacije()==0) {
+            JOptionPane.showMessageDialog(this, "Trening je uspešno sačuvan.");
+        } else {
+            JOptionPane.showMessageDialog(this, "Greška! Trening nije uspešno sačuvan!");
+        }
+//        KontrolerPL.sacuvajIliAzurirajTrening(trening);
     }//GEN-LAST:event_jbtnSacuvajPrisustvaActionPerformed
 
 
@@ -360,7 +383,15 @@ public class TrainingPanel extends javax.swing.JPanel {
     private void initForm() {
         prisustvaPromenjena = false;
         Ref<List<Grupa>> refGrupe = new Ref(new ArrayList<>());
-        KontrolerPL.vratiListuGrupa(refGrupe, true);
+        
+        ZahtevObjekat zo = new ZahtevObjekat();
+        zo.setSistemskaOperacija(SistemskeOperacije.SO_VRATI_LISTU_GRUPA);
+        zo.setUcitajListe(true);
+        zo.setParametar(refGrupe);
+        ServerInstance.vratiInstancu().posaljiZahtev(zo);
+        OdgovorObjekat oo = ServerInstance.vratiInstancu().vratiOdgovor();
+        refGrupe = oo.getPodaci();
+//        KontrolerPL.vratiListuGrupa(refGrupe, true);
         jcmbGroups.removeAllItems();
         for(Grupa g : refGrupe.get()) {
             jcmbGroups.addItem(g);
@@ -416,7 +447,15 @@ public class TrainingPanel extends javax.swing.JPanel {
         Ref<List<Trening>> refTreninzi = new Ref(treninzi);
         List<String> kriterijumPretrage = new ArrayList<>();
         kriterijumPretrage.add("grupa");
-        KontrolerPL.vratiTreninge(refTreninzi, kriterijumPretrage);
+        
+        ZahtevObjekat zo = new ZahtevObjekat();
+        zo.setSistemskaOperacija(SistemskeOperacije.SO_PRONADJI_TRENINGE);
+        zo.setKriterijumPretrage(kriterijumPretrage);
+        zo.setParametar(refTreninzi);
+        ServerInstance.vratiInstancu().posaljiZahtev(zo);
+        OdgovorObjekat oo = ServerInstance.vratiInstancu().vratiOdgovor();
+        refTreninzi = oo.getPodaci();
+//        KontrolerPL.vratiTreninge(refTreninzi, kriterijumPretrage);
         treninzi = refTreninzi.get();
         ttm = new TreningTableModel(treninzi);
         jtblTraining.setModel(ttm);
@@ -427,7 +466,14 @@ public class TrainingPanel extends javax.swing.JPanel {
         if(selectedRow > -1) {
             Trening t = ttm.vratiTreningeTabele().get(selectedRow);
             Ref<Trening> treningRef = new Ref(t);
-            KontrolerPL.ucitajTrening(treningRef);
+            
+            ZahtevObjekat zo = new ZahtevObjekat();
+            zo.setSistemskaOperacija(SistemskeOperacije.SO_UCITAJ_TRENING);
+            zo.setParametar(treningRef);
+            ServerInstance.vratiInstancu().posaljiZahtev(zo);
+            OdgovorObjekat oo = ServerInstance.vratiInstancu().vratiOdgovor();
+            treningRef = oo.getPodaci();
+//            KontrolerPL.ucitajTrening(treningRef);
             ptm.postaviPrisustvaTabele(new ArrayList<>());
             ptm.postaviPrisustvaTabele(treningRef.get().getPrisustva());
         }
