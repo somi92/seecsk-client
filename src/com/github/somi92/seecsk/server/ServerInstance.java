@@ -49,10 +49,7 @@ public class ServerInstance {
     
     public void posaljiZahtev(ZahtevObjekat zo) {
         try {
-//            if(in==null || out==null) {
-//                in = new ObjectInputStream(this.socket.getInputStream());
-//                out = new ObjectOutputStream(this.socket.getOutputStream());
-//            }
+            System.out.println(zo);
             out.writeObject(zo);
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -61,11 +58,9 @@ public class ServerInstance {
     
     public OdgovorObjekat vratiOdgovor() {
         try {
-//            if(in==null || out==null) {
-//                in = new ObjectInputStream(this.socket.getInputStream());
-//                out = new ObjectOutputStream(this.socket.getOutputStream());
-//            }
-            return (OdgovorObjekat) in.readObject();
+            OdgovorObjekat oo = (OdgovorObjekat) in.readObject();
+            System.out.println(oo);
+            return oo;
         } catch (IOException ex) {
             ex.printStackTrace();
         } catch (ClassNotFoundException ex) {
