@@ -6,19 +6,19 @@
 package com.github.somi92.seecsk.gui.panels;
 
 import com.github.somi92.seecsk.data.Sesija;
-import com.github.somi92.seecsk.domain.Grupa;
-import com.github.somi92.seecsk.domain.Prisustvo;
-import com.github.somi92.seecsk.domain.Trening;
 import com.github.somi92.seecsk.gui.FNewTraining;
 import com.github.somi92.seecsk.model.tables.trening.PrisustvaTableEditor;
 import com.github.somi92.seecsk.model.tables.trening.PrisustvaTableModel;
 import com.github.somi92.seecsk.model.tables.trening.PrisustvaTableRenderer;
 import com.github.somi92.seecsk.model.tables.trening.TreningTableModel;
 import com.github.somi92.seecsk.server.ServerInstance;
-import com.github.somi92.seecsk.transfer.OdgovorObjekat;
-import com.github.somi92.seecsk.transfer.ZahtevObjekat;
-import com.github.somi92.seecsk.util.Ref;
-import com.github.somi92.seecsk.util.SistemskeOperacije;
+import com.github.somi92.seecskcommon.domain.Grupa;
+import com.github.somi92.seecskcommon.domain.Prisustvo;
+import com.github.somi92.seecskcommon.domain.Trening;
+import com.github.somi92.seecskcommon.transfer.OdgovorObjekat;
+import com.github.somi92.seecskcommon.transfer.ZahtevObjekat;
+import com.github.somi92.seecskcommon.util.Ref;
+import com.github.somi92.seecskcommon.util.SistemskeOperacije;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultCellEditor;
@@ -295,7 +295,7 @@ public class TrainingPanel extends javax.swing.JPanel {
     private void jcmbGroupsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcmbGroupsActionPerformed
         setTrainig();
         if(ptm != null) {
-            ptm.postaviPrisustvaTabele(new ArrayList<>());
+            ptm.postaviPrisustvaTabele(new ArrayList<Prisustvo>());
         }
     }//GEN-LAST:event_jcmbGroupsActionPerformed
 
@@ -306,7 +306,7 @@ public class TrainingPanel extends javax.swing.JPanel {
     private void jbtnNoviTreningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnNoviTreningActionPerformed
         Sesija.vratiInstancu().vratiMapuSesije().put(Sesija.GRUPA, (Grupa) jcmbGroups.getSelectedItem());
         new FNewTraining(null, true).setVisible(true);
-        ptm.postaviPrisustvaTabele(new ArrayList<>());
+        ptm.postaviPrisustvaTabele(new ArrayList<Prisustvo>());
         setTrainig();
     }//GEN-LAST:event_jbtnNoviTreningActionPerformed
 
@@ -328,7 +328,7 @@ public class TrainingPanel extends javax.swing.JPanel {
 //                boolean res = KontrolerPL.obrisiTrening(ttm.vratiTreningeTabele().get(row));
                 if(res) {
                     setTrainig();
-                    ptm.postaviPrisustvaTabele(new ArrayList<>());
+                    ptm.postaviPrisustvaTabele(new ArrayList<Prisustvo>());
                 }
             }
         }
@@ -342,12 +342,20 @@ public class TrainingPanel extends javax.swing.JPanel {
             return;
         }
         Trening trening = ttm.vratiTreningeTabele().get(trainingRow);
-        List<Prisustvo> prisustva = ptm.vratiPrisustvaTabele();
+        ArrayList<Prisustvo> prisustva = ptm.vratiPrisustvaTabele();
         trening.setPrisustva(prisustva);
+        
+        Trening t = new Trening();
+        t.setIdTrening(trening.getIdTrening());
+        t.setGrupa(trening.getGrupa());
+        t.setDatumVreme(trening.getDatumVreme());
+        t.setTrajanjeMin(trening.getTrajanjeMin());
+        t.setOpisTreninga(trening.getOpisTreninga());
+        t.setPrisustva(prisustva);
         
         ZahtevObjekat zo = new ZahtevObjekat();
         zo.setSistemskaOperacija(SistemskeOperacije.SO_ZAPAMTI_TRENING);
-        zo.setParametar(trening);
+        zo.setParametar(t);
         ServerInstance.vratiInstancu().posaljiZahtev(zo);
         OdgovorObjekat oo = ServerInstance.vratiInstancu().vratiOdgovor();
         if(oo.getStatusOperacije()==0) {
@@ -402,7 +410,9 @@ public class TrainingPanel extends javax.swing.JPanel {
 
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                setAttendance();
+                if(!e.getValueIsAdjusting()) {
+                    setAttendance();
+                }
             }
         });
         
@@ -465,7 +475,14 @@ public class TrainingPanel extends javax.swing.JPanel {
         int selectedRow = jtblTraining.getSelectedRow();
         if(selectedRow > -1) {
             Trening t = ttm.vratiTreningeTabele().get(selectedRow);
-            Ref<Trening> treningRef = new Ref(t);
+            
+            Trening tr = new Trening();
+            tr.setIdTrening(t.getIdTrening());
+            tr.setGrupa(t.getGrupa());
+            tr.setDatumVreme(t.getDatumVreme());
+            tr.setTrajanjeMin(t.getTrajanjeMin());
+            tr.setOpisTreninga(t.getOpisTreninga());
+            Ref<Trening> treningRef = new Ref(tr);
             
             ZahtevObjekat zo = new ZahtevObjekat();
             zo.setSistemskaOperacija(SistemskeOperacije.SO_UCITAJ_TRENING);
@@ -474,7 +491,7 @@ public class TrainingPanel extends javax.swing.JPanel {
             OdgovorObjekat oo = ServerInstance.vratiInstancu().vratiOdgovor();
             treningRef = oo.getPodaci();
 //            KontrolerPL.ucitajTrening(treningRef);
-            ptm.postaviPrisustvaTabele(new ArrayList<>());
+            ptm.postaviPrisustvaTabele(new ArrayList<Prisustvo>());
             ptm.postaviPrisustvaTabele(treningRef.get().getPrisustva());
         }
     }

@@ -5,8 +5,9 @@
  */
 package com.github.somi92.seecsk.util.email;
 
-import com.github.somi92.seecsk.util.Config;
-import com.github.somi92.seecsk.util.Constants;
+
+import com.github.somi92.seecskcommon.util.Config;
+import com.github.somi92.seecskcommon.util.Constants;
 import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.EmailAttachment;
 import org.apache.commons.mail.EmailException;

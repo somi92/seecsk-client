@@ -5,17 +5,18 @@
  */
 package com.github.somi92.seecsk.gui.panels;
 
+
 import com.github.somi92.seecsk.data.Sesija;
-import com.github.somi92.seecsk.domain.Clan;
-import com.github.somi92.seecsk.domain.Clanarina;
 import com.github.somi92.seecsk.gui.FNewMember;
 import com.github.somi92.seecsk.model.tables.clan.ClanoviTableModel;
 import com.github.somi92.seecsk.model.tables.clan.ClanoviTableRenderer;
 import com.github.somi92.seecsk.server.ServerInstance;
-import com.github.somi92.seecsk.transfer.OdgovorObjekat;
-import com.github.somi92.seecsk.transfer.ZahtevObjekat;
-import com.github.somi92.seecsk.util.Ref;
-import com.github.somi92.seecsk.util.SistemskeOperacije;
+import com.github.somi92.seecskcommon.domain.Clan;
+import com.github.somi92.seecskcommon.domain.Clanarina;
+import com.github.somi92.seecskcommon.transfer.OdgovorObjekat;
+import com.github.somi92.seecskcommon.transfer.ZahtevObjekat;
+import com.github.somi92.seecskcommon.util.Ref;
+import com.github.somi92.seecskcommon.util.SistemskeOperacije;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -267,6 +268,8 @@ public class MembersPanel extends javax.swing.JPanel {
 //                boolean res = KontrolerPL.obrisiClana(clanoviTableModel.vratiClanoveTabele().get(row));
                 if(res) {
                     azurirajTabelu();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Ne možete obrisati člana jer sadrži vezane podatke (uplate) koji moraju biti pojedinačno obrisani.");
                 }
             }
         }

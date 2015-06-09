@@ -6,8 +6,8 @@
 package com.github.somi92.seecsk.gui;
 
 import com.github.somi92.seecsk.data.Sesija;
-import com.github.somi92.seecsk.domain.Grupa;
 import com.github.somi92.seecsk.gui.panels.TrainingPanel;
+import com.github.somi92.seecskcommon.domain.Grupa;
 import java.awt.CardLayout;
 
 /**

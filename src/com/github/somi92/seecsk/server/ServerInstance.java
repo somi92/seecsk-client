@@ -5,14 +5,14 @@
  */
 package com.github.somi92.seecsk.server;
 
-import com.github.somi92.seecsk.transfer.OdgovorObjekat;
-import com.github.somi92.seecsk.transfer.ZahtevObjekat;
+
+import com.github.somi92.seecskcommon.transfer.OdgovorObjekat;
+import com.github.somi92.seecskcommon.transfer.ZahtevObjekat;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -53,6 +53,8 @@ public class ServerInstance {
             out.writeObject(zo);
         } catch (IOException ex) {
             ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Sistem je izgubio konekciju sa serverom, operacije ne može biti izvršena. Restartuje sistem.", 
+                    "Greška", JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -63,8 +65,12 @@ public class ServerInstance {
             return oo;
         } catch (IOException ex) {
             ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Sistem je izgubio konekciju sa serverom, operacije ne može biti izvršena. Restartuje sistem.", 
+                    "Greška", JOptionPane.ERROR_MESSAGE);
         } catch (ClassNotFoundException ex) {
             ex.printStackTrace();
+//            JOptionPane.showMessageDialog(null, "Sistem je izgubio konekciju sa serverom, operacije ne može biti izvršena. Restartuje sistem.", 
+//                    "Greška", JOptionPane.ERROR_MESSAGE);
         }
         return null;
     }

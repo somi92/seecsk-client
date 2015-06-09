@@ -5,10 +5,9 @@
  */
 package com.github.somi92.seecsk.model.tables.trening;
 
-import com.github.somi92.seecsk.domain.Trening;
+import com.github.somi92.seecskcommon.domain.Trening;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 

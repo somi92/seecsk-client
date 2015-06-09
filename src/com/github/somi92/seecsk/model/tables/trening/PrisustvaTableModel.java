@@ -5,8 +5,8 @@
  */
 package com.github.somi92.seecsk.model.tables.trening;
 
-import com.github.somi92.seecsk.domain.Clan;
-import com.github.somi92.seecsk.domain.Prisustvo;
+import com.github.somi92.seecskcommon.domain.Clan;
+import com.github.somi92.seecskcommon.domain.Prisustvo;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JCheckBox;
@@ -18,23 +18,23 @@ import javax.swing.table.AbstractTableModel;
  */
 public class PrisustvaTableModel extends AbstractTableModel {
 
-    private List<Prisustvo> prisustva;
+    private ArrayList<Prisustvo> prisustva;
     
     public PrisustvaTableModel() {
-        prisustva = new ArrayList<>();
+        prisustva = new ArrayList<Prisustvo>();
     }
     
-    public PrisustvaTableModel(List<Prisustvo> prisustva) {
+    public PrisustvaTableModel(ArrayList<Prisustvo> prisustva) {
         this();
         this.prisustva = prisustva;
     }
     
-    public void postaviPrisustvaTabele(List<Prisustvo> prisustva) {
+    public void postaviPrisustvaTabele(ArrayList<Prisustvo> prisustva) {
         this.prisustva = prisustva;
         fireTableDataChanged();
     }
     
-    public List<Prisustvo> vratiPrisustvaTabele() {
+    public ArrayList<Prisustvo> vratiPrisustvaTabele() {
         return prisustva;
     }
     

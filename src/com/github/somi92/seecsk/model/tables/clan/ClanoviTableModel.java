@@ -5,9 +5,10 @@
  */
 package com.github.somi92.seecsk.model.tables.clan;
 
-import com.github.somi92.seecsk.domain.Clan;
-import com.github.somi92.seecsk.domain.Clanarina;
-import com.github.somi92.seecsk.domain.Uplata;
+
+import com.github.somi92.seecskcommon.domain.Clan;
+import com.github.somi92.seecskcommon.domain.Clanarina;
+import com.github.somi92.seecskcommon.domain.Uplata;
 import java.awt.Color;
 import java.text.SimpleDateFormat;
 import java.util.Date;

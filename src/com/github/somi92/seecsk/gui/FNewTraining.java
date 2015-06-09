@@ -6,15 +6,15 @@
 package com.github.somi92.seecsk.gui;
 
 import com.github.somi92.seecsk.data.Sesija;
-import com.github.somi92.seecsk.domain.Clan;
-import com.github.somi92.seecsk.domain.Grupa;
-import com.github.somi92.seecsk.domain.Prisustvo;
-import com.github.somi92.seecsk.domain.Trening;
 import com.github.somi92.seecsk.server.ServerInstance;
-import com.github.somi92.seecsk.transfer.OdgovorObjekat;
-import com.github.somi92.seecsk.transfer.ZahtevObjekat;
-import com.github.somi92.seecsk.util.Ref;
-import com.github.somi92.seecsk.util.SistemskeOperacije;
+import com.github.somi92.seecskcommon.domain.Clan;
+import com.github.somi92.seecskcommon.domain.Grupa;
+import com.github.somi92.seecskcommon.domain.Prisustvo;
+import com.github.somi92.seecskcommon.domain.Trening;
+import com.github.somi92.seecskcommon.transfer.OdgovorObjekat;
+import com.github.somi92.seecskcommon.transfer.ZahtevObjekat;
+import com.github.somi92.seecskcommon.util.Ref;
+import com.github.somi92.seecskcommon.util.SistemskeOperacije;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -180,13 +180,23 @@ public class FNewTraining extends javax.swing.JDialog {
         trening.setDatumVreme(datum);
         trening.setTrajanjeMin(trajanjeMin);
         trening.setOpisTreninga(opis);
+//        if(!update) {
+//            initAttendance();
+//        }
+        
+        Trening t = new Trening();
+        t.setIdTrening(trening.getIdTrening());
+        t.setDatumVreme(datum);
+        t.setTrajanjeMin(trajanjeMin);
+        t.setOpisTreninga(opis);
+        t.setGrupa(grupa);
         if(!update) {
             initAttendance();
+            t.setPrisustva(trening.getPrisustva());
         }
-        
         ZahtevObjekat zo = new ZahtevObjekat();
         zo.setSistemskaOperacija(SistemskeOperacije.SO_ZAPAMTI_TRENING);
-        zo.setParametar(trening);
+        zo.setParametar(t);
         ServerInstance.vratiInstancu().posaljiZahtev(zo);
         OdgovorObjekat oo = ServerInstance.vratiInstancu().vratiOdgovor();
         if(oo.getStatusOperacije()==0) {
@@ -253,7 +263,7 @@ public class FNewTraining extends javax.swing.JDialog {
 //        KontrolerPL.pronadjiClanove(clanoviRef, kriterijumPretrage, false);
         clanovi = clanoviRef.get();
         
-        List<Prisustvo> prisustva = new ArrayList<>();
+        ArrayList<Prisustvo> prisustva = new ArrayList<>();
         for(Clan c : clanovi) {
             Prisustvo p = new Prisustvo(true, 0, trening, c);
             prisustva.add(p);

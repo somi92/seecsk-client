@@ -5,7 +5,7 @@
  */
 package com.github.somi92.seecsk.model.tables.trening;
 
-import com.github.somi92.seecsk.domain.Prisustvo;
+import com.github.somi92.seecskcommon.domain.Prisustvo;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;

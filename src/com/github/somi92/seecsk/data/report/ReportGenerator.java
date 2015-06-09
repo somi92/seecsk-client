@@ -5,7 +5,7 @@
  */
 package com.github.somi92.seecsk.data.report;
 
-import com.github.somi92.seecsk.util.Constants;
+import com.github.somi92.seecskcommon.util.Constants;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

@@ -5,18 +5,16 @@
  */
 package com.github.somi92.seecsk.gui;
 
-import com.github.somi92.seecsk.domain.Zaposleni;
 import com.github.somi92.seecsk.server.ServerInstance;
-import com.github.somi92.seecsk.transfer.OdgovorObjekat;
-import com.github.somi92.seecsk.transfer.ZahtevObjekat;
-import com.github.somi92.seecsk.util.Config;
-import com.github.somi92.seecsk.util.Constants;
-import com.github.somi92.seecsk.util.Ref;
-import com.github.somi92.seecsk.util.SistemskeOperacije;
+import com.github.somi92.seecskcommon.domain.Zaposleni;
+import com.github.somi92.seecskcommon.transfer.OdgovorObjekat;
+import com.github.somi92.seecskcommon.transfer.ZahtevObjekat;
+import com.github.somi92.seecskcommon.util.Config;
+import com.github.somi92.seecskcommon.util.Constants;
+import com.github.somi92.seecskcommon.util.Ref;
+import com.github.somi92.seecskcommon.util.SistemskeOperacije;
 import java.io.IOException;
 import java.net.Socket;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**

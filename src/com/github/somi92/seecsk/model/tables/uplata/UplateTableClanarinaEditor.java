@@ -5,7 +5,7 @@
  */
 package com.github.somi92.seecsk.model.tables.uplata;
 
-import com.github.somi92.seecsk.domain.Clanarina;
+import com.github.somi92.seecskcommon.domain.Clanarina;
 import java.awt.Component;
 import javax.swing.AbstractCellEditor;
 import javax.swing.JComboBox;
