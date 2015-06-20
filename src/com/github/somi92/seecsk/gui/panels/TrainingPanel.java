@@ -6,6 +6,7 @@
 package com.github.somi92.seecsk.gui.panels;
 
 import com.github.somi92.seecsk.data.Sesija;
+import com.github.somi92.seecsk.gui.FNewGroup;
 import com.github.somi92.seecsk.gui.FNewTraining;
 import com.github.somi92.seecsk.model.tables.trening.PrisustvaTableEditor;
 import com.github.somi92.seecsk.model.tables.trening.PrisustvaTableModel;
@@ -73,6 +74,7 @@ public class TrainingPanel extends javax.swing.JPanel {
         jbtnObrisiTrening = new javax.swing.JButton();
         jbtnSacuvajPrisustva = new javax.swing.JButton();
         jcmbGroups = new javax.swing.JComboBox();
+        jbtnNovaGrupa = new javax.swing.JButton();
 
         setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -215,7 +217,7 @@ public class TrainingPanel extends javax.swing.JPanel {
                         .addComponent(jbtnObrisiTrening, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(45, 45, 45)
                         .addComponent(jbtnSacuvajPrisustva, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         jcmbGroups.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -230,6 +232,13 @@ public class TrainingPanel extends javax.swing.JPanel {
             }
         });
 
+        jbtnNovaGrupa.setText("Dodaj grupu");
+        jbtnNovaGrupa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnNovaGrupaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jpnlTrainingLayout = new javax.swing.GroupLayout(jpnlTraining);
         jpnlTraining.setLayout(jpnlTrainingLayout);
         jpnlTrainingLayout.setHorizontalGroup(
@@ -238,7 +247,9 @@ public class TrainingPanel extends javax.swing.JPanel {
                 .addGroup(jpnlTrainingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpnlTrainingLayout.createSequentialGroup()
                         .addGap(12, 12, 12)
-                        .addComponent(jcmbGroups, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jcmbGroups, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(112, 112, 112)
+                        .addComponent(jbtnNovaGrupa, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jpnlTrainingLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jpnlTrainingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -252,8 +263,10 @@ public class TrainingPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jcmbGroups, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGroup(jpnlTrainingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jcmbGroups, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbtnNovaGrupa, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(17, 17, 17)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -366,6 +379,12 @@ public class TrainingPanel extends javax.swing.JPanel {
 //        KontrolerPL.sacuvajIliAzurirajTrening(trening);
     }//GEN-LAST:event_jbtnSacuvajPrisustvaActionPerformed
 
+    private void jbtnNovaGrupaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnNovaGrupaActionPerformed
+        FNewGroup ng = new FNewGroup(null, true);
+        ng.setVisible(true);
+        initForm();
+    }//GEN-LAST:event_jbtnNovaGrupaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -376,6 +395,7 @@ public class TrainingPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JButton jbtnIzmeniTrening;
+    private javax.swing.JButton jbtnNovaGrupa;
     private javax.swing.JButton jbtnNoviTrening;
     private javax.swing.JButton jbtnObrisiTrening;
     private javax.swing.JButton jbtnSacuvajPrisustva;

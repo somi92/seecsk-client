@@ -37,7 +37,7 @@ public class FMainForm extends javax.swing.JFrame {
         jpnlMainPanel = new javax.swing.JPanel();
         jpnlToolbar = new javax.swing.JPanel();
         jbtnMembers = new javax.swing.JButton();
-        jbtnMembers1 = new javax.swing.JButton();
+        jbtnTraining = new javax.swing.JButton();
         jbtnMembers2 = new javax.swing.JButton();
         jpnlStatus = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -66,13 +66,13 @@ public class FMainForm extends javax.swing.JFrame {
             }
         });
 
-        jbtnMembers1.setBackground(new java.awt.Color(204, 204, 204));
-        jbtnMembers1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/github/somi92/seecsk/resources/groups.png"))); // NOI18N
-        jbtnMembers1.setToolTipText("Kategorije, grupe i treninzi");
-        jbtnMembers1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jbtnMembers1.addActionListener(new java.awt.event.ActionListener() {
+        jbtnTraining.setBackground(new java.awt.Color(204, 204, 204));
+        jbtnTraining.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/github/somi92/seecsk/resources/groups.png"))); // NOI18N
+        jbtnTraining.setToolTipText("Kategorije, grupe i treninzi");
+        jbtnTraining.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jbtnTraining.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtnMembers1ActionPerformed(evt);
+                jbtnTrainingActionPerformed(evt);
             }
         });
 
@@ -89,7 +89,7 @@ public class FMainForm extends javax.swing.JFrame {
                 .addGap(37, 37, 37)
                 .addComponent(jbtnMembers)
                 .addGap(18, 18, 18)
-                .addComponent(jbtnMembers1)
+                .addComponent(jbtnTraining)
                 .addGap(18, 18, 18)
                 .addComponent(jbtnMembers2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -100,7 +100,7 @@ public class FMainForm extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jpnlToolbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jbtnMembers, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jbtnMembers1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jbtnTraining, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jbtnMembers2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -211,20 +211,20 @@ public class FMainForm extends javax.swing.JFrame {
         panel1.azurirajTabelu();
     }//GEN-LAST:event_jbtnMembersActionPerformed
 
-    private void jbtnMembers1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMembers1ActionPerformed
+    private void jbtnTrainingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnTrainingActionPerformed
         CardLayout cl = (CardLayout) jpnlMainPanel.getLayout();
         cl.show(jpnlMainPanel, "panel2");
 //        panel2.initializeTrainingPanel();
         panel2.setTrainig();
-    }//GEN-LAST:event_jbtnMembers1ActionPerformed
+    }//GEN-LAST:event_jbtnTrainingActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JButton jbtnMembers;
-    private javax.swing.JButton jbtnMembers1;
     private javax.swing.JButton jbtnMembers2;
+    private javax.swing.JButton jbtnTraining;
     private javax.swing.JMenu jmnuApp;
     private javax.swing.JMenu jmnuMain;
     private javax.swing.JMenuBar jmnuMenuBar;
