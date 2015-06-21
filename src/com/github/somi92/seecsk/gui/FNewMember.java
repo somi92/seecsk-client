@@ -518,19 +518,20 @@ public class FNewMember extends javax.swing.JDialog {
         
         boolean isValidated = validateInput(idClana, imePrezime, email, adresa, brojTel);
         if(isValidated) { 
-            if(clan == null ) {
-                
-                Ref<Clan> c = new Ref(new Clan());
-//                KontrolerPL.kreirajClana(c);
-                ZahtevObjekat zo = new ZahtevObjekat();
-                zo.setSistemskaOperacija(SistemskeOperacije.SO_KREIRAJ_CLANA);
-                zo.setParametar(c);
-                ServerInstance.vratiInstancu().posaljiZahtev(zo);
-                OdgovorObjekat oo = ServerInstance.vratiInstancu().vratiOdgovor();
-                c = oo.getPodaci();
-                
-                clan = c.get();
-            }
+            // FIX: moved this code to init according to docs
+//            if(clan == null ) {
+//                
+//                Ref<Clan> c = new Ref(new Clan());
+//                ZahtevObjekat zo = new ZahtevObjekat();
+//                zo.setSistemskaOperacija(SistemskeOperacije.SO_KREIRAJ_CLANA);
+//                zo.setParametar(c);
+//                ServerInstance.vratiInstancu().posaljiZahtev(zo);
+//                OdgovorObjekat oo = ServerInstance.vratiInstancu().vratiOdgovor();
+//                c = oo.getPodaci();
+//                
+//                clan = c.get();
+//            }
+            
 //            Clan clan = new Clan(idClana, imePrezime, pol, email, brojTel, datumRodjenja.getTime(), datumUclanjenja.getTime(), napomena);
             clan.setBrojLK(idClana);
             clan.setImePrezime(imePrezime);
@@ -567,11 +568,11 @@ public class FNewMember extends javax.swing.JDialog {
             
 //            boolean res = KontrolerPL.sacuvajIliAzurirajClana(clan, uplateBrisanje);
             if(res) {
-                JOptionPane.showMessageDialog(this, "Član je uspešno zapamćen.");
+                JOptionPane.showMessageDialog(this, "Sistem je uspešno zapamtio novog člana.");
                 caller.azurirajTabelu();
                 dispose();
             } else {
-                JOptionPane.showMessageDialog(this, "Sistem ne može da sačuva člana.", "Greška", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Sistem ne može da zapamti novog člana.", "Greška", JOptionPane.ERROR_MESSAGE);
             }
         } else {
 //            JOptionPane.showMessageDialog(this, "Podaci nisu validni, pokušajte ponovo.");
@@ -894,6 +895,24 @@ public class FNewMember extends javax.swing.JDialog {
             setTitle("SEECSK - Unos novog člana");
             jbtnSave.setText("Sačuvaj");
             jbtnUplatnica.setEnabled(false);
+            
+            // FIX: moved this code here from save button, according to docs
+            Ref<Clan> c = new Ref(new Clan());
+            zo = new ZahtevObjekat();
+            zo.setSistemskaOperacija(SistemskeOperacije.SO_KREIRAJ_CLANA);
+            zo.setParametar(c);
+            ServerInstance.vratiInstancu().posaljiZahtev(zo);
+            oo = ServerInstance.vratiInstancu().vratiOdgovor();
+            c = oo.getPodaci();
+            clan = c.get();
+            boolean res = (oo.getStatusOperacije()==0);
+            if(res) {
+                JOptionPane.showMessageDialog(this, "Sistem je kreirao člana.");
+                caller.azurirajTabelu();
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Sistem ne može da kreira novog člana.", "Greška", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 
