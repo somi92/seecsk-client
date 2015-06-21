@@ -760,6 +760,9 @@ public class FNewMember extends javax.swing.JDialog {
         OdgovorObjekat oo = ServerInstance.vratiInstancu().vratiOdgovor();
         ref = oo.getPodaci();
         
+        if(oo.getStatusOperacije() != 0) {
+            return;
+        }
         List<Grupa> groups = ref.get();
         for(Grupa g : groups) {
             jcmbGroup.addItem(g);
@@ -811,27 +814,29 @@ public class FNewMember extends javax.swing.JDialog {
         OdgovorObjekat oo = ServerInstance.vratiInstancu().vratiOdgovor();
         clanarineRef = oo.getPodaci();
 //        KontrolerPL.vratiClanarine(clanarineRef, null, false);
-        
+ 
         TableColumnModel tcmUplate = jtblUplate.getColumnModel();
         TableColumn tcUplate = tcmUplate.getColumn(0);
         TableColumnModel tcmPrisustva = jtblPrisustva.getColumnModel();
         TableColumn tcPrisustvo = tcmPrisustva.getColumn(1);
         
         clanarine = new ArrayList<>();
-        for(int i=0; i<clanarineRef.get().size(); i++) {
-            boolean contains = false;
-            if(clan == null) {
-                clanarine = clanarineRef.get();
-                break;
-            }
-            for(Uplata u : clan.getUplate()) {
-                if(u.getClanarina().equals(clanarineRef.get().get(i))) {
-                    contains = true;
+        if(oo.getStatusOperacije() == 0) {
+            for(int i=0; i<clanarineRef.get().size(); i++) {
+                boolean contains = false;
+                if(clan == null) {
+                    clanarine = clanarineRef.get();
                     break;
                 }
-            }
-            if(!contains && clan.getDatumUclanjenja().before(clanarineRef.get().get(i).getDatumDo())) {
-                clanarine.add(clanarineRef.get().get(i));
+                for(Uplata u : clan.getUplate()) {
+                    if(u.getClanarina().equals(clanarineRef.get().get(i))) {
+                        contains = true;
+                        break;
+                    }
+                }
+                if(!contains && clan.getDatumUclanjenja().before(clanarineRef.get().get(i).getDatumDo())) {
+                    clanarine.add(clanarineRef.get().get(i));
+                }
             }
         }
         
@@ -904,9 +909,9 @@ public class FNewMember extends javax.swing.JDialog {
             ServerInstance.vratiInstancu().posaljiZahtev(zo);
             oo = ServerInstance.vratiInstancu().vratiOdgovor();
             c = oo.getPodaci();
-            clan = c.get();
             boolean res = (oo.getStatusOperacije()==0);
             if(res) {
+                this.clan = c.get();
                 JOptionPane.showMessageDialog(this, "Sistem je kreirao člana.");
                 caller.azurirajTabelu();
                 dispose();
