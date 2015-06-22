@@ -272,8 +272,10 @@ public class MembersPanel extends javax.swing.JPanel {
 //                boolean res = KontrolerPL.obrisiClana(clanoviTableModel.vratiClanoveTabele().get(row));
                 if(res) {
                     azurirajTabelu();
+                    JOptionPane.showMessageDialog(this, "Sistem je uspešno izbrisao člana.");
                 } else {
-                    JOptionPane.showMessageDialog(this, "Ne možete obrisati člana jer sadrži vezane podatke (uplate) koji moraju biti pojedinačno obrisani.");
+//                    JOptionPane.showMessageDialog(this, "Ne možete obrisati člana jer sadrži vezane podatke (uplate) koji moraju biti pojedinačno obrisani.");
+                    JOptionPane.showMessageDialog(this, "Sistem ne može da obriše izabranog člana.", "Greška", JOptionPane.ERROR_MESSAGE);
                 }
             }
         }
