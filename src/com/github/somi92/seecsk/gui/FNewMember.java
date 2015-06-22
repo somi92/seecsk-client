@@ -910,7 +910,7 @@ public class FNewMember extends javax.swing.JDialog {
                 this.clan = c.get();
                 JOptionPane.showMessageDialog(this, "Sistem je kreirao člana.");
                 caller.azurirajTabelu();
-                dispose();
+//                dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Sistem ne može da kreira novog člana.", "Greška", JOptionPane.ERROR_MESSAGE);
                 dispose();

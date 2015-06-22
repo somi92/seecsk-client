@@ -163,20 +163,21 @@ public class FNewTraining extends javax.swing.JDialog {
         int trajanjeMin = Integer.parseInt(jspnDuration.getValue().toString());
         String opis = jtxtDesc.getText().trim();
         
-        if(!update) {
-            trening = new Trening();
-            trening.setGrupa(grupa);
-            Ref<Trening> treningRef = new Ref(trening);
-            
-            ZahtevObjekat zo = new ZahtevObjekat();
-            zo.setSistemskaOperacija(SistemskeOperacije.SO_KREIRAJ_TRENING);
-            zo.setParametar(treningRef);
-            ServerInstance.vratiInstancu().posaljiZahtev(zo);
-            OdgovorObjekat oo = ServerInstance.vratiInstancu().vratiOdgovor();
-            treningRef = oo.getPodaci();
-//            KontrolerPL.kreirajTrening(treningRef);
-            trening = treningRef.get();
-        }
+        // FIX: move code to init, according to docs
+//        if(!update) {
+//            trening = new Trening();
+//            trening.setGrupa(grupa);
+//            Ref<Trening> treningRef = new Ref(trening);
+//            
+//            ZahtevObjekat zo = new ZahtevObjekat();
+//            zo.setSistemskaOperacija(SistemskeOperacije.SO_KREIRAJ_TRENING);
+//            zo.setParametar(treningRef);
+//            ServerInstance.vratiInstancu().posaljiZahtev(zo);
+//            OdgovorObjekat oo = ServerInstance.vratiInstancu().vratiOdgovor();
+//            treningRef = oo.getPodaci();
+//            trening = treningRef.get();
+//        }
+        
         trening.setDatumVreme(datum);
         trening.setTrajanjeMin(trajanjeMin);
         trening.setOpisTreninga(opis);
@@ -200,9 +201,9 @@ public class FNewTraining extends javax.swing.JDialog {
         ServerInstance.vratiInstancu().posaljiZahtev(zo);
         OdgovorObjekat oo = ServerInstance.vratiInstancu().vratiOdgovor();
         if(oo.getStatusOperacije()==0) {
-            JOptionPane.showMessageDialog(this, "Trening je uspešno sačuvan.");
+            JOptionPane.showMessageDialog(this, "Sistem je evidentirao trening.");
         } else {
-            JOptionPane.showMessageDialog(this, "Greška! Trening nije uspešno sačuvan!");
+            JOptionPane.showMessageDialog(this, "Sistem ne može da zapamti trening.", "Greška", JOptionPane.ERROR_MESSAGE);
         }
 //        KontrolerPL.sacuvajIliAzurirajTrening(trening);
         dispose();
@@ -241,6 +242,27 @@ public class FNewTraining extends javax.swing.JDialog {
             jspnDuration.setValue(trening.getTrajanjeMin());
             jtxtDesc.setText(trening.getOpisTreninga());
         }
+        
+        // FIX: moved from button, according to docs
+        if(!update) {
+            trening = new Trening();
+            trening.setGrupa(grupa);
+            Ref<Trening> treningRef = new Ref(trening);
+            
+            ZahtevObjekat zo = new ZahtevObjekat();
+            zo.setSistemskaOperacija(SistemskeOperacije.SO_KREIRAJ_TRENING);
+            zo.setParametar(treningRef);
+            ServerInstance.vratiInstancu().posaljiZahtev(zo);
+            OdgovorObjekat oo = ServerInstance.vratiInstancu().vratiOdgovor();
+            treningRef = oo.getPodaci();
+            if(oo.getStatusOperacije() == 0) {
+                trening = treningRef.get();
+                JOptionPane.showMessageDialog(this, "Sistem je kreirao novi trening.");
+            } else {
+                JOptionPane.showMessageDialog(this, "Sistem ne može da kreira novi trening.", "Greška", JOptionPane.ERROR_MESSAGE);
+                dispose();
+            }
+        }
     }
     
     private void initAttendance() {
@@ -260,13 +282,13 @@ public class FNewTraining extends javax.swing.JDialog {
         ServerInstance.vratiInstancu().posaljiZahtev(zo);
         OdgovorObjekat oo = ServerInstance.vratiInstancu().vratiOdgovor();
         clanoviRef = oo.getPodaci();
-//        KontrolerPL.pronadjiClanove(clanoviRef, kriterijumPretrage, false);
-        clanovi = clanoviRef.get();
-        
         ArrayList<Prisustvo> prisustva = new ArrayList<>();
-        for(Clan c : clanovi) {
-            Prisustvo p = new Prisustvo(true, 0, trening, c);
-            prisustva.add(p);
+        if(oo.getStatusOperacije()==0) {
+            clanovi = clanoviRef.get();
+            for(Clan c : clanovi) {
+                Prisustvo p = new Prisustvo(true, 0, trening, c);
+                prisustva.add(p);
+            }
         }
         trening.setPrisustva(prisustva);
     }

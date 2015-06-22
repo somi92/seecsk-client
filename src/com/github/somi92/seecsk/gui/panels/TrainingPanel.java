@@ -382,9 +382,9 @@ public class TrainingPanel extends javax.swing.JPanel {
         ServerInstance.vratiInstancu().posaljiZahtev(zo);
         OdgovorObjekat oo = ServerInstance.vratiInstancu().vratiOdgovor();
         if(oo.getStatusOperacije()==0) {
-            JOptionPane.showMessageDialog(this, "Trening je uspešno sačuvan.");
+            JOptionPane.showMessageDialog(this, "Sistem je evidentirao trening.");
         } else {
-            JOptionPane.showMessageDialog(this, "Greška! Trening nije uspešno sačuvan!");
+            JOptionPane.showMessageDialog(this, "Sistem ne može da zapamti trening.", "Greška", JOptionPane.ERROR_MESSAGE);
         }
 //        KontrolerPL.sacuvajIliAzurirajTrening(trening);
     }//GEN-LAST:event_jbtnSacuvajPrisustvaActionPerformed
