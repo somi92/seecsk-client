@@ -169,11 +169,11 @@ public class FLogin extends javax.swing.JFrame {
             OdgovorObjekat oo = ServerInstance.vratiInstancu().vratiOdgovor();
             refZaposleni = oo.getPodaci();
             if(oo.getStatusOperacije()==0) {
-//                JOptionPane.showMessageDialog(this, "OK! "+refZaposleni.get());
+                JOptionPane.showMessageDialog(this, "Uspešno ste prijavljeni na sistem.");
                 new FMainForm().setVisible(true);
                 dispose();
             } else {
-                JOptionPane.showMessageDialog(this, "Greška! Kombinacija korisničko ime/šifra nije ispravna. Nemate pristup sistemu.");
+                JOptionPane.showMessageDialog(this, "Sistem ne može da pronađe administratora sa navedenim podacima.", "Greška", JOptionPane.ERROR_MESSAGE);
             }
             
         } catch (NumberFormatException ex) {
