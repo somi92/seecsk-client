@@ -316,9 +316,14 @@ public class TrainingPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jbtnIzmeniTreningActionPerformed
 
     private void jcmbGroupsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcmbGroupsActionPerformed
-        setTrainig();
+        boolean res = setTrainig();
         if(ptm != null) {
             ptm.postaviPrisustvaTabele(new ArrayList<Prisustvo>());
+            if(res) {
+                JOptionPane.showMessageDialog(this, "Sistem je pronašao treninge.");
+            } else {
+                JOptionPane.showMessageDialog(this, "Sistem ne može da pronađe treninge po zadatim vrednostima.", "Greška", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }//GEN-LAST:event_jcmbGroupsActionPerformed
 
@@ -475,10 +480,10 @@ public class TrainingPanel extends javax.swing.JPanel {
         tc1.setCellEditor(new DefaultCellEditor(new JTextField()));
     }
     
-    public void setTrainig() {
+    public boolean setTrainig() {
         Grupa selected = (Grupa) jcmbGroups.getSelectedItem();
         if(selected == null) {
-            return;
+            return false;
         }
         List<Trening> treninzi = new ArrayList<>();
         Trening temp = new Trening();
@@ -495,10 +500,14 @@ public class TrainingPanel extends javax.swing.JPanel {
         ServerInstance.vratiInstancu().posaljiZahtev(zo);
         OdgovorObjekat oo = ServerInstance.vratiInstancu().vratiOdgovor();
         refTreninzi = oo.getPodaci();
-//        KontrolerPL.vratiTreninge(refTreninzi, kriterijumPretrage);
-        treninzi = refTreninzi.get();
-        ttm = new TreningTableModel(treninzi);
-        jtblTraining.setModel(ttm);
+        if(oo.getStatusOperacije()==0) {
+            treninzi = refTreninzi.get();
+            ttm = new TreningTableModel(treninzi);
+            jtblTraining.setModel(ttm);
+            return true;
+        } else {
+            return false;
+        }
     }
     
     private void setAttendance() {
@@ -520,9 +529,13 @@ public class TrainingPanel extends javax.swing.JPanel {
             ServerInstance.vratiInstancu().posaljiZahtev(zo);
             OdgovorObjekat oo = ServerInstance.vratiInstancu().vratiOdgovor();
             treningRef = oo.getPodaci();
-//            KontrolerPL.ucitajTrening(treningRef);
-            ptm.postaviPrisustvaTabele(new ArrayList<Prisustvo>());
-            ptm.postaviPrisustvaTabele(treningRef.get().getPrisustva());
+            if(oo.getStatusOperacije() == 0) {
+                ptm.postaviPrisustvaTabele(new ArrayList<Prisustvo>());
+                ptm.postaviPrisustvaTabele(treningRef.get().getPrisustva());
+                JOptionPane.showMessageDialog(this, "Sistem je pronašao podatke o treningu.");
+            } else {
+                JOptionPane.showMessageDialog(this, "Sistem ne može da prikaže podatke o izabranom treningu.", "Greška", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
     
