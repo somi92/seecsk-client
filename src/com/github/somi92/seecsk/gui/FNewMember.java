@@ -568,11 +568,19 @@ public class FNewMember extends javax.swing.JDialog {
             
 //            boolean res = KontrolerPL.sacuvajIliAzurirajClana(clan, uplateBrisanje);
             if(res) {
-                JOptionPane.showMessageDialog(this, "Sistem je uspešno zapamtio novog člana.");
+                if(jbtnSave.getText().startsWith("Sa")) {
+                    JOptionPane.showMessageDialog(this, "Sistem je uspešno zapamtio novog člana.");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Sistem je uspešno zapamtio izmene.");
+                }
                 caller.azurirajTabelu();
                 dispose();
             } else {
-                JOptionPane.showMessageDialog(this, "Sistem ne može da zapamti novog člana.", "Greška", JOptionPane.ERROR_MESSAGE);
+                if(jbtnSave.getText().startsWith("Sa")) {
+                    JOptionPane.showMessageDialog(this, "Sistem ne može da zapamti novog člana.", "Greška", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Sistem ne može da zapamti izmene člana.", "Greška", JOptionPane.ERROR_MESSAGE);
+                }
             }
         } else {
 //            JOptionPane.showMessageDialog(this, "Podaci nisu validni, pokušajte ponovo.");
@@ -626,31 +634,6 @@ public class FNewMember extends javax.swing.JDialog {
             Sesija.vratiInstancu().vratiMapuSesije().put(Sesija.LISTA, clanarine);
             Sesija.vratiInstancu().vratiMapuSesije().put(Sesija.CLAN, clan);
             new FInvoice(null, true).setVisible(true);
-            /*
-            File pdfFile = new File(
-                    Constants.LocationConfigKeys.TEMP_INVOICE_LOCATION+"uplatnica_"+clan.getIdClan()+".pdf");
-            PDDocument doc = PDDocument.load(pdfFile);
-            List<PDPage> pages = doc.getDocumentCatalog().getAllPages();
-            PDPage page = (PDPage) pages.get(0);
-            
-            PDFPagePanel pdfPanel = new PDFPagePanel();
-            pdfPanel.setPage(page);
-            
-            JInternalFrame iFrame = new JInternalFrame();
-            iFrame.setBounds(0, 0, jpnlUplatnica.getWidth(), jpnlUplatnica.getHeight());
-            jpnlUplatnica.add(iFrame);
-            iFrame.add(pdfPanel);
-            iFrame.setVisible(true);
-            iFrame.setResizable(false);
-            iFrame.setSelected(false);
-            pdfPanel.setVisible(true);
-            */
-//        } catch (IOException ex) {
-//            ex.printStackTrace();
-//        } catch (PropertyVetoException ex) {
-//            ex.printStackTrace();
-//        }
-        
     }//GEN-LAST:event_jbtnUplatnicaActionPerformed
 
     private void jbtnTreninziActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnTreninziActionPerformed
@@ -892,6 +875,19 @@ public class FNewMember extends javax.swing.JDialog {
             
             pctm.postaviPrisustvaTabele(clan.getPrisustva());
             
+            Ref<Clan> c = new Ref(new Clan());
+            zo = new ZahtevObjekat();
+            zo.setSistemskaOperacija(SistemskeOperacije.SO_UCITAJ_CLANA);
+            zo.setParametar(c);
+            ServerInstance.vratiInstancu().posaljiZahtev(zo);
+            oo = ServerInstance.vratiInstancu().vratiOdgovor();
+            if(oo.getStatusOperacije() == 0) {
+                JOptionPane.showMessageDialog(this, "Sistem je pronašao podatke o članu.");
+            } else {
+                JOptionPane.showMessageDialog(this, "Sistem ne može da pronađe podatke o članu.", "Greška", JOptionPane.ERROR_MESSAGE);
+                dispose();
+            }
+            
         } else {
 //            jtblUplate.setEnabled(false);
 //            jbtnNovaUplata.setEnabled(false);
@@ -917,6 +913,7 @@ public class FNewMember extends javax.swing.JDialog {
                 dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Sistem ne može da kreira novog člana.", "Greška", JOptionPane.ERROR_MESSAGE);
+                dispose();
             }
         }
     }

@@ -6,6 +6,7 @@
 package com.github.somi92.seecsk.gui.panels;
 
 import com.github.somi92.seecsk.data.Sesija;
+import com.github.somi92.seecsk.gui.FMainForm;
 import com.github.somi92.seecsk.gui.FNewGroup;
 import com.github.somi92.seecsk.gui.FNewTraining;
 import com.github.somi92.seecsk.model.tables.trening.PrisustvaTableEditor;
@@ -38,6 +39,7 @@ import javax.swing.table.TableColumnModel;
  */
 public class TrainingPanel extends javax.swing.JPanel {
 
+    private FMainForm parent;
     /**
      * Creates new form CategoriesGroupsPanel
      */
@@ -45,9 +47,17 @@ public class TrainingPanel extends javax.swing.JPanel {
         initializeTrainingPanel();
     }
     
+    public TrainingPanel(FMainForm parent) {
+        this();
+        this.parent = parent;
+    }
+    
     public void initializeTrainingPanel() {
         initComponents();
         initForm();
+        if(parent!=null) {
+            parent.setStatus("");
+        }
     }
 
     /**

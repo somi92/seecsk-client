@@ -40,7 +40,7 @@ public class FMainForm extends javax.swing.JFrame {
         jbtnTraining = new javax.swing.JButton();
         jbtnMembers2 = new javax.swing.JButton();
         jpnlStatus = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        jlblStatus = new javax.swing.JLabel();
         jmnuMenuBar = new javax.swing.JMenuBar();
         jmnuMain = new javax.swing.JMenu();
         jmnuiMembers = new javax.swing.JMenuItem();
@@ -107,7 +107,7 @@ public class FMainForm extends javax.swing.JFrame {
 
         jpnlStatus.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        jLabel1.setText("Status:");
+        jlblStatus.setText("Status:");
 
         javax.swing.GroupLayout jpnlStatusLayout = new javax.swing.GroupLayout(jpnlStatus);
         jpnlStatus.setLayout(jpnlStatusLayout);
@@ -115,12 +115,12 @@ public class FMainForm extends javax.swing.JFrame {
             jpnlStatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpnlStatusLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jlblStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jpnlStatusLayout.setVerticalGroup(
             jpnlStatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE)
+            .addComponent(jlblStatus, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE)
         );
 
         jmnuMain.setText("Glavni meni");
@@ -219,12 +219,12 @@ public class FMainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtnTrainingActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JButton jbtnMembers;
     private javax.swing.JButton jbtnMembers2;
     private javax.swing.JButton jbtnTraining;
+    private javax.swing.JLabel jlblStatus;
     private javax.swing.JMenu jmnuApp;
     private javax.swing.JMenu jmnuMain;
     private javax.swing.JMenuBar jmnuMenuBar;
@@ -237,8 +237,8 @@ public class FMainForm extends javax.swing.JFrame {
     private static TrainingPanel panel2;
     
     private void initPanels() {
-        panel1 = new MembersPanel();
-        panel2 = new TrainingPanel();
+        panel1 = new MembersPanel(this);
+        panel2 = new TrainingPanel(this);
         jpnlMainPanel.add("panel1", panel1);
         jpnlMainPanel.add("panel2", panel2);
     }
@@ -249,5 +249,9 @@ public class FMainForm extends javax.swing.JFrame {
     
     public static TrainingPanel getTrainingPanel() {
         return panel2;
+    }
+    
+    public void setStatus(String status) {
+        jlblStatus.setText("Status: "+status);
     }
 }

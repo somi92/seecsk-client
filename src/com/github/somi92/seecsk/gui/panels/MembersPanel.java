@@ -7,6 +7,7 @@ package com.github.somi92.seecsk.gui.panels;
 
 
 import com.github.somi92.seecsk.data.Sesija;
+import com.github.somi92.seecsk.gui.FMainForm;
 import com.github.somi92.seecsk.gui.FNewMember;
 import com.github.somi92.seecsk.model.tables.clan.ClanoviTableModel;
 import com.github.somi92.seecsk.model.tables.clan.ClanoviTableRenderer;
@@ -32,11 +33,14 @@ import javax.swing.table.TableColumnModel;
  */
 public class MembersPanel extends javax.swing.JPanel {
 
+    private FMainForm parent;
+    
     /**
      * Creates new form MembersPanel
      */
-    public MembersPanel() {
+    public MembersPanel(FMainForm parent) {
         initializeMembersPanel();
+        this.parent = parent;
     }
     
     public void initializeMembersPanel() {
@@ -372,6 +376,12 @@ public class MembersPanel extends javax.swing.JPanel {
                     resultList.add(clan);
                 }
             }
+        }
+        
+        if(resultList.size()<1 || resultList == null) {
+            parent.setStatus("Sistem ne može da pronađe članove po zadatim vrednostima.");
+        } else {
+            parent.setStatus("Sistem je pronašao članove.");
         }
         
         azurirajTabelu(resultList);
