@@ -50,11 +50,14 @@ public class FNewGroup extends javax.swing.JDialog {
         jcmbKategorija = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
         jbtnZapamti = new javax.swing.JButton();
+        jbtnKreirajGrupu = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Dodaj novu grupu");
 
         jLabel1.setText("Naziv:");
+
+        jtxtNaziv.setEnabled(false);
 
         jLabel2.setText("Napomena:");
 
@@ -62,14 +65,25 @@ public class FNewGroup extends javax.swing.JDialog {
         jtxtNapomena.setLineWrap(true);
         jtxtNapomena.setRows(5);
         jtxtNapomena.setWrapStyleWord(true);
+        jtxtNapomena.setEnabled(false);
         jScrollPane1.setViewportView(jtxtNapomena);
+
+        jcmbKategorija.setEnabled(false);
 
         jLabel3.setText("Kategorija:");
 
         jbtnZapamti.setText("Zapamti");
+        jbtnZapamti.setEnabled(false);
         jbtnZapamti.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnZapamtiActionPerformed(evt);
+            }
+        });
+
+        jbtnKreirajGrupu.setText("Kreiraj grupu");
+        jbtnKreirajGrupu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnKreirajGrupuActionPerformed(evt);
             }
         });
 
@@ -79,8 +93,11 @@ public class FNewGroup extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jbtnZapamti, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jbtnKreirajGrupu, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jbtnZapamti, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -110,7 +127,9 @@ public class FNewGroup extends javax.swing.JDialog {
                     .addComponent(jcmbKategorija, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addGap(30, 30, 30)
-                .addComponent(jbtnZapamti, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbtnZapamti, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbtnKreirajGrupu, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
@@ -135,18 +154,40 @@ public class FNewGroup extends javax.swing.JDialog {
         ServerInstance.vratiInstancu().posaljiZahtev(zo);
         OdgovorObjekat oo = ServerInstance.vratiInstancu().vratiOdgovor();
         if(oo.getStatusOperacije() != 0) {
-            JOptionPane.showMessageDialog(this, "Sistem nije uspeo da zapamti grupu.");
+            JOptionPane.showMessageDialog(this, "Sistem ne može da zapamti novu grupu.", "Greška", JOptionPane.ERROR_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(this, "Sistem je zapamtio grupu.");
+            JOptionPane.showMessageDialog(this, "Sistem je uspešno zapamtio novu grupu.");
             dispose();
         }
     }//GEN-LAST:event_jbtnZapamtiActionPerformed
+
+    private void jbtnKreirajGrupuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnKreirajGrupuActionPerformed
+        Ref<Grupa> refGrupa = new Ref<>(new Grupa());
+        ZahtevObjekat zo = new ZahtevObjekat();
+        zo.setSistemskaOperacija(SistemskeOperacije.SO_KREIRAJ_GRUPU);
+        zo.setParametar(refGrupa);
+        ServerInstance.vratiInstancu().posaljiZahtev(zo);
+        OdgovorObjekat oo = ServerInstance.vratiInstancu().vratiOdgovor();
+        if(oo.getStatusOperacije() != 0) {
+            JOptionPane.showMessageDialog(this, "Sistem ne može da kreira novu grupu.", "Greška", JOptionPane.ERROR_MESSAGE);
+        } else {
+            refGrupa = oo.getPodaci();
+            grupa = refGrupa.get();
+            jtxtNaziv.setEnabled(true);
+            jtxtNapomena.setEnabled(true);
+            jcmbKategorija.setEnabled(true);
+            jbtnZapamti.setEnabled(true);
+            jbtnKreirajGrupu.setEnabled(false);
+            JOptionPane.showMessageDialog(this, "Sistem je kreirao novu grupu.");
+        }
+    }//GEN-LAST:event_jbtnKreirajGrupuActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton jbtnKreirajGrupu;
     private javax.swing.JButton jbtnZapamti;
     private javax.swing.JComboBox jcmbKategorija;
     private javax.swing.JTextArea jtxtNapomena;
@@ -173,19 +214,20 @@ public class FNewGroup extends javax.swing.JDialog {
             }
         }
         
-        Ref<Grupa> refGrupa = new Ref<>(new Grupa());
-        zo = new ZahtevObjekat();
-        zo.setSistemskaOperacija(SistemskeOperacije.SO_KREIRAJ_GRUPU);
-        zo.setParametar(refGrupa);
-        ServerInstance.vratiInstancu().posaljiZahtev(zo);
-        oo = ServerInstance.vratiInstancu().vratiOdgovor();
-        if(oo.getStatusOperacije() != 0) {
-            JOptionPane.showMessageDialog(this, "Greška! Sistem ne može da kreira grupu.");
-            dispose();
-            return;
-        } else {
-            refGrupa = oo.getPodaci();
-            grupa = refGrupa.get();
-        }
+        // FIX: move this to create button, according to docs
+//        Ref<Grupa> refGrupa = new Ref<>(new Grupa());
+//        zo = new ZahtevObjekat();
+//        zo.setSistemskaOperacija(SistemskeOperacije.SO_KREIRAJ_GRUPU);
+//        zo.setParametar(refGrupa);
+//        ServerInstance.vratiInstancu().posaljiZahtev(zo);
+//        oo = ServerInstance.vratiInstancu().vratiOdgovor();
+//        if(oo.getStatusOperacije() != 0) {
+//            JOptionPane.showMessageDialog(this, "Greška! Sistem ne može da kreira grupu.");
+//            dispose();
+//            return;
+//        } else {
+//            refGrupa = oo.getPodaci();
+//            grupa = refGrupa.get();
+//        }
     }
 }
