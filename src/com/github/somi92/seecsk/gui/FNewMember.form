@@ -449,6 +449,8 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jbtnUplatnica" min="-2" pref="170" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
+                          <Component id="jbtnSacuvajClanarinu" min="-2" pref="97" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                           <Component id="jbtnNovaUplata" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jbtnObrisiUplatu" min="-2" max="-2" attributes="0"/>
@@ -468,6 +470,7 @@
                       <Component id="jbtnUplatnica" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jbtnNovaUplata" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jbtnObrisiUplatu" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jbtnSacuvajClanarinu" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -499,6 +502,7 @@
         <Component class="javax.swing.JButton" name="jbtnObrisiUplatu">
           <Properties>
             <Property name="text" type="java.lang.String" value="Obri&#x161;i uplatu"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtnObrisiUplatuActionPerformed"/>
@@ -507,6 +511,7 @@
         <Component class="javax.swing.JButton" name="jbtnNovaUplata">
           <Properties>
             <Property name="text" type="java.lang.String" value="Dodaj uplatu"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtnNovaUplataActionPerformed"/>
@@ -518,6 +523,15 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtnUplatnicaActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="jbtnSacuvajClanarinu">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Sa&#x10d;uvaj"/>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtnSacuvajClanarinuActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

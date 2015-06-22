@@ -109,6 +109,7 @@ public class FNewMember extends javax.swing.JDialog {
         jbtnObrisiUplatu = new javax.swing.JButton();
         jbtnNovaUplata = new javax.swing.JButton();
         jbtnUplatnica = new javax.swing.JButton();
+        jbtnSacuvajClanarinu = new javax.swing.JButton();
         jpnlPrisustva = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jtblPrisustva = new javax.swing.JTable();
@@ -345,6 +346,7 @@ public class FNewMember extends javax.swing.JDialog {
         jScrollPane2.setViewportView(jtblUplate);
 
         jbtnObrisiUplatu.setText("Obriši uplatu");
+        jbtnObrisiUplatu.setEnabled(false);
         jbtnObrisiUplatu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnObrisiUplatuActionPerformed(evt);
@@ -352,6 +354,7 @@ public class FNewMember extends javax.swing.JDialog {
         });
 
         jbtnNovaUplata.setText("Dodaj uplatu");
+        jbtnNovaUplata.setEnabled(false);
         jbtnNovaUplata.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnNovaUplataActionPerformed(evt);
@@ -362,6 +365,14 @@ public class FNewMember extends javax.swing.JDialog {
         jbtnUplatnica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnUplatnicaActionPerformed(evt);
+            }
+        });
+
+        jbtnSacuvajClanarinu.setText("Sačuvaj");
+        jbtnSacuvajClanarinu.setEnabled(false);
+        jbtnSacuvajClanarinu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnSacuvajClanarinuActionPerformed(evt);
             }
         });
 
@@ -378,6 +389,8 @@ public class FNewMember extends javax.swing.JDialog {
                     .addGroup(jpnlClanarineLayout.createSequentialGroup()
                         .addComponent(jbtnUplatnica, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jbtnSacuvajClanarinu, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
                         .addComponent(jbtnNovaUplata)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jbtnObrisiUplatu)
@@ -392,7 +405,8 @@ public class FNewMember extends javax.swing.JDialog {
                 .addGroup(jpnlClanarineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbtnUplatnica)
                     .addComponent(jbtnNovaUplata)
-                    .addComponent(jbtnObrisiUplatu))
+                    .addComponent(jbtnObrisiUplatu)
+                    .addComponent(jbtnSacuvajClanarinu))
                 .addContainerGap())
         );
 
@@ -602,7 +616,17 @@ public class FNewMember extends javax.swing.JDialog {
     }//GEN-LAST:event_jbtnExitActionPerformed
 
     private void jbtnNovaUplataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnNovaUplataActionPerformed
-        utm.dodajRed();
+        ZahtevObjekat zo = new ZahtevObjekat();
+        zo.setSistemskaOperacija(SistemskeOperacije.SO_KREIRAJ_CLANARINU);
+        zo.setParametar(new Ref(new Clanarina()));
+        ServerInstance.vratiInstancu().posaljiZahtev(zo);
+        OdgovorObjekat oo = ServerInstance.vratiInstancu().vratiOdgovor();
+        if(oo.getStatusOperacije()==0) {
+            utm.dodajRed();
+            JOptionPane.showMessageDialog(this, "Sistem je kreirao novu članarinu.");
+        } else {
+            JOptionPane.showMessageDialog(this, "Sistem ne može da kreira novu članarinu.", "Greška", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jbtnNovaUplataActionPerformed
 
     private void jtxtAdresaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtAdresaFocusGained
@@ -641,6 +665,33 @@ public class FNewMember extends javax.swing.JDialog {
         new FTraining(null, true).setVisible(true);
     }//GEN-LAST:event_jbtnTreninziActionPerformed
 
+    private void jbtnSacuvajClanarinuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnSacuvajClanarinuActionPerformed
+        List<Uplata> uplataTabele = utm.vratiUplateTabele();
+        if(uplataTabele == null || uplataTabele.size()<1) {
+            JOptionPane.showMessageDialog(this, "Morate uneti bar jednu uplatu.");
+            return;
+        }
+        for(Uplata u : uplataTabele) {
+            if(u.getClanarina() == null) {
+                JOptionPane.showMessageDialog(this, "Niste izabrali članarinu (period) za neku od uplata.");
+                return;
+            } else {
+                u.setClan(clan);
+            }
+        }
+            
+        ZahtevObjekat zo = new ZahtevObjekat();
+        zo.setSistemskaOperacija(SistemskeOperacije.SO_ZAPAMTI_CLANARINE);
+        zo.setParametar(uplataTabele);
+        ServerInstance.vratiInstancu().posaljiZahtev(zo);
+        OdgovorObjekat oo = ServerInstance.vratiInstancu().vratiOdgovor();
+        if(oo.getStatusOperacije()==0) {
+            JOptionPane.showMessageDialog(this, "Sistem je uspešno zapamtio nove uplate članarine.");
+        } else {
+            JOptionPane.showMessageDialog(this, "Sistem ne može da zapamti nove uplate članarine.", "Greška", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jbtnSacuvajClanarinuActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
@@ -651,6 +702,7 @@ public class FNewMember extends javax.swing.JDialog {
     private javax.swing.JButton jbtnExit;
     private javax.swing.JButton jbtnNovaUplata;
     private javax.swing.JButton jbtnObrisiUplatu;
+    private javax.swing.JButton jbtnSacuvajClanarinu;
     private javax.swing.JButton jbtnSave;
     private javax.swing.JButton jbtnTreninzi;
     private javax.swing.JButton jbtnUplatnica;
@@ -887,6 +939,10 @@ public class FNewMember extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, "Sistem ne može da pronađe podatke o članu.", "Greška", JOptionPane.ERROR_MESSAGE);
                 dispose();
             }
+            
+            jbtnSacuvajClanarinu.setEnabled(true);
+            jbtnNovaUplata.setEnabled(true);
+            jbtnObrisiUplatu.setEnabled(true);
             
         } else {
 //            jtblUplate.setEnabled(false);
