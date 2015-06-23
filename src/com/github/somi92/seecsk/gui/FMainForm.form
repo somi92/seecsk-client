@@ -119,7 +119,7 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jbtnTraining" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jbtnMembers2" min="-2" max="-2" attributes="0"/>
+                  <Component id="jbtnMembershipFee" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -131,7 +131,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jbtnMembers" max="32767" attributes="0"/>
                       <Component id="jbtnTraining" max="32767" attributes="0"/>
-                      <Component id="jbtnMembers2" max="32767" attributes="0"/>
+                      <Component id="jbtnMembershipFee" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -177,7 +177,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtnTrainingActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jbtnMembers2">
+        <Component class="javax.swing.JButton" name="jbtnMembershipFee">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="cc" green="cc" red="cc" type="rgb"/>
@@ -192,6 +192,9 @@
               </Border>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtnMembershipFeeActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

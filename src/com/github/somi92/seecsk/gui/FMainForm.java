@@ -7,6 +7,7 @@ package com.github.somi92.seecsk.gui;
 
 import com.github.somi92.seecsk.gui.panels.TrainingPanel;
 import com.github.somi92.seecsk.gui.panels.MembersPanel;
+import com.github.somi92.seecsk.gui.panels.MembershipFeePanel;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
 
@@ -38,7 +39,7 @@ public class FMainForm extends javax.swing.JFrame {
         jpnlToolbar = new javax.swing.JPanel();
         jbtnMembers = new javax.swing.JButton();
         jbtnTraining = new javax.swing.JButton();
-        jbtnMembers2 = new javax.swing.JButton();
+        jbtnMembershipFee = new javax.swing.JButton();
         jpnlStatus = new javax.swing.JPanel();
         jlblStatus = new javax.swing.JLabel();
         jmnuMenuBar = new javax.swing.JMenuBar();
@@ -76,10 +77,15 @@ public class FMainForm extends javax.swing.JFrame {
             }
         });
 
-        jbtnMembers2.setBackground(new java.awt.Color(204, 204, 204));
-        jbtnMembers2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/github/somi92/seecsk/resources/finance.png"))); // NOI18N
-        jbtnMembers2.setToolTipText("Članarine");
-        jbtnMembers2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jbtnMembershipFee.setBackground(new java.awt.Color(204, 204, 204));
+        jbtnMembershipFee.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/github/somi92/seecsk/resources/finance.png"))); // NOI18N
+        jbtnMembershipFee.setToolTipText("Članarine");
+        jbtnMembershipFee.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jbtnMembershipFee.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnMembershipFeeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jpnlToolbarLayout = new javax.swing.GroupLayout(jpnlToolbar);
         jpnlToolbar.setLayout(jpnlToolbarLayout);
@@ -91,7 +97,7 @@ public class FMainForm extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jbtnTraining)
                 .addGap(18, 18, 18)
-                .addComponent(jbtnMembers2)
+                .addComponent(jbtnMembershipFee)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jpnlToolbarLayout.setVerticalGroup(
@@ -101,7 +107,7 @@ public class FMainForm extends javax.swing.JFrame {
                 .addGroup(jpnlToolbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jbtnMembers, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jbtnTraining, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jbtnMembers2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jbtnMembershipFee, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -218,11 +224,17 @@ public class FMainForm extends javax.swing.JFrame {
         panel2.setTrainig();
     }//GEN-LAST:event_jbtnTrainingActionPerformed
 
+    private void jbtnMembershipFeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMembershipFeeActionPerformed
+        CardLayout cl = (CardLayout) jpnlMainPanel.getLayout();
+        cl.show(jpnlMainPanel, "panel3");
+        panel3.initForm();
+    }//GEN-LAST:event_jbtnMembershipFeeActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JButton jbtnMembers;
-    private javax.swing.JButton jbtnMembers2;
+    private javax.swing.JButton jbtnMembershipFee;
     private javax.swing.JButton jbtnTraining;
     private javax.swing.JLabel jlblStatus;
     private javax.swing.JMenu jmnuApp;
@@ -235,12 +247,15 @@ public class FMainForm extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     private static MembersPanel panel1;
     private static TrainingPanel panel2;
+    private static MembershipFeePanel panel3;
     
     private void initPanels() {
         panel1 = new MembersPanel(this);
         panel2 = new TrainingPanel(this);
+        panel3 = new MembershipFeePanel(this);
         jpnlMainPanel.add("panel1", panel1);
         jpnlMainPanel.add("panel2", panel2);
+        jpnlMainPanel.add("panel3", panel3);
     }
 
     private void initToolbar() {
