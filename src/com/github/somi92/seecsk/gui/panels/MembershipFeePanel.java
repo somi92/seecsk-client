@@ -277,9 +277,13 @@ public class MembershipFeePanel extends javax.swing.JPanel {
                     }
                 }
             }
-            ctm.postaviClanarine(clanarine);
-            ctm.fireTableDataChanged();
-            JOptionPane.showMessageDialog(this, "Sistem je pronašao članarine.");
+            if(clanarine.size()<1) {
+                JOptionPane.showMessageDialog(this, "Sistem nije pronašao članarine po zadatom kriterijumu.");
+            } else {
+                ctm.postaviClanarine(clanarine);
+                ctm.fireTableDataChanged();
+                JOptionPane.showMessageDialog(this, "Sistem je pronašao članarine.");
+            }
         } else {
             JOptionPane.showMessageDialog(this, "Sistem ne može da pronađe članarine.", "Greška", JOptionPane.ERROR_MESSAGE);
         }
