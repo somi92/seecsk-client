@@ -276,13 +276,6 @@ public class MembershipFeePanel extends javax.swing.JPanel {
                         clanarine.add(c);
                     }
                 }
-                
-//                if(jchbPeriod.isSelected() && c.getDatumOd().after(odDatum) && c.getDatumDo().before(doDatum)) {
-//                    if(napomena != null && !napomena.isEmpty() && c.getNapomena().contains(napomena)) {
-//                        clanarine.add(c);
-//                    }
-//                }
-                
             }
             ctm.postaviClanarine(clanarine);
             ctm.fireTableDataChanged();
