@@ -11,26 +11,26 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jmnuiMembers">
               <Properties>
-                <Property name="text" type="java.lang.String" value="&#x10c;lanovi kluba"/>
+                <Property name="text" type="java.lang.String" value="Evidencija &#x10d;lanova"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmnuiMembersActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
+            <MenuItem class="javax.swing.JMenuItem" name="jmnuiTraining">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Panel1"/>
+                <Property name="text" type="java.lang.String" value="Evidencija treninga"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmnuiTrainingActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
+            <MenuItem class="javax.swing.JMenuItem" name="jmnuiFee">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Panel2"/>
+                <Property name="text" type="java.lang.String" value="Evidencija &#x10d;lanarina"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem2ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmnuiFeeActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

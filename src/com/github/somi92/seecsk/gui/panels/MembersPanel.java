@@ -39,11 +39,12 @@ public class MembersPanel extends javax.swing.JPanel {
      * Creates new form MembersPanel
      */
     public MembersPanel(FMainForm parent) {
-        initializeMembersPanel();
         this.parent = parent;
+        initializeMembersPanel();
     }
     
     public void initializeMembersPanel() {
+        parent.setStatus("");
         initComponents();
         initSearch();
         azurirajTabelu();
@@ -207,7 +208,7 @@ public class MembersPanel extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("DejaVu Sans", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Članovi kluba");
+        jLabel1.setText("Evidencija članova");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

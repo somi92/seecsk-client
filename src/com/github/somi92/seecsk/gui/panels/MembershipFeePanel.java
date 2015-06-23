@@ -282,7 +282,8 @@ public class MembershipFeePanel extends javax.swing.JPanel {
             } else {
                 ctm.postaviClanarine(clanarine);
                 ctm.fireTableDataChanged();
-                JOptionPane.showMessageDialog(this, "Sistem je pronašao članarine.");
+//                JOptionPane.showMessageDialog(this, "Sistem je pronašao članarine.");
+                parent.setStatus("Sistem je pronašao članarine.");
             }
         } else {
             JOptionPane.showMessageDialog(this, "Sistem ne može da pronađe članarine.", "Greška", JOptionPane.ERROR_MESSAGE);
@@ -324,6 +325,8 @@ public class MembershipFeePanel extends javax.swing.JPanel {
     private ClanarineTableModel ctm;
     
     public void initForm() {
+        parent.setStatus("");
+        
         utm2 = new UplateTableModel2();
         jtblUplate.setModel(utm2);
         ctm = new ClanarineTableModel();
@@ -388,7 +391,8 @@ public class MembershipFeePanel extends javax.swing.JPanel {
                 List<Uplata> uplate = clanarinaRef.get().getUplate();
                 utm2.postaviUplateTabele(uplate);
                 utm2.fireTableDataChanged();
-                JOptionPane.showMessageDialog(this, "Sistem je pronšao podatke o izabranoj članarini.");
+//                JOptionPane.showMessageDialog(this, "Sistem je pronšao podatke o izabranoj članarini.");
+                parent.setStatus("Sistem je pronšao podatke o izabranoj članarini.");
             } else {
                 JOptionPane.showMessageDialog(this, "Sistem ne može da pronađe podatke o izabranoj članarini.", "Greška", JOptionPane.ERROR_MESSAGE);
             }

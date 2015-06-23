@@ -45,8 +45,8 @@ public class FMainForm extends javax.swing.JFrame {
         jmnuMenuBar = new javax.swing.JMenuBar();
         jmnuMain = new javax.swing.JMenu();
         jmnuiMembers = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        jmnuiTraining = new javax.swing.JMenuItem();
+        jmnuiFee = new javax.swing.JMenuItem();
         jmnuApp = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -131,7 +131,7 @@ public class FMainForm extends javax.swing.JFrame {
 
         jmnuMain.setText("Glavni meni");
 
-        jmnuiMembers.setText("Članovi kluba");
+        jmnuiMembers.setText("Evidencija članova");
         jmnuiMembers.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmnuiMembersActionPerformed(evt);
@@ -139,21 +139,21 @@ public class FMainForm extends javax.swing.JFrame {
         });
         jmnuMain.add(jmnuiMembers);
 
-        jMenuItem1.setText("Panel1");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        jmnuiTraining.setText("Evidencija treninga");
+        jmnuiTraining.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                jmnuiTrainingActionPerformed(evt);
             }
         });
-        jmnuMain.add(jMenuItem1);
+        jmnuMain.add(jmnuiTraining);
 
-        jMenuItem2.setText("Panel2");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        jmnuiFee.setText("Evidencija članarina");
+        jmnuiFee.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                jmnuiFeeActionPerformed(evt);
             }
         });
-        jmnuMain.add(jMenuItem2);
+        jmnuMain.add(jmnuiFee);
 
         jmnuMenuBar.add(jmnuMain);
 
@@ -192,23 +192,18 @@ public class FMainForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jmnuiMembersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnuiMembersActionPerformed
-//        FMembers fMembers = new FMembers();
-//        fMembers.setVisible(true);
-    }//GEN-LAST:event_jmnuiMembersActionPerformed
-
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         CardLayout cl = (CardLayout) jpnlMainPanel.getLayout();
         cl.show(jpnlMainPanel, "panel1");
 //        panel1.initializeMembersPanel();
         panel1.azurirajTabelu();
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_jmnuiMembersActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void jmnuiTrainingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnuiTrainingActionPerformed
         CardLayout cl = (CardLayout) jpnlMainPanel.getLayout();
         cl.show(jpnlMainPanel, "panel2");
 //        panel2.initializeTrainingPanel();
         panel2.setTrainig();
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_jmnuiTrainingActionPerformed
 
     private void jbtnMembersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMembersActionPerformed
         CardLayout cl = (CardLayout) jpnlMainPanel.getLayout();
@@ -230,9 +225,13 @@ public class FMainForm extends javax.swing.JFrame {
         panel3.initForm();
     }//GEN-LAST:event_jbtnMembershipFeeActionPerformed
 
+    private void jmnuiFeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnuiFeeActionPerformed
+        CardLayout cl = (CardLayout) jpnlMainPanel.getLayout();
+        cl.show(jpnlMainPanel, "panel3");
+        panel3.initForm();
+    }//GEN-LAST:event_jmnuiFeeActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JButton jbtnMembers;
     private javax.swing.JButton jbtnMembershipFee;
     private javax.swing.JButton jbtnTraining;
@@ -240,7 +239,9 @@ public class FMainForm extends javax.swing.JFrame {
     private javax.swing.JMenu jmnuApp;
     private javax.swing.JMenu jmnuMain;
     private javax.swing.JMenuBar jmnuMenuBar;
+    private javax.swing.JMenuItem jmnuiFee;
     private javax.swing.JMenuItem jmnuiMembers;
+    private javax.swing.JMenuItem jmnuiTraining;
     private javax.swing.JPanel jpnlMainPanel;
     private javax.swing.JPanel jpnlStatus;
     private javax.swing.JPanel jpnlToolbar;

@@ -240,7 +240,7 @@
           <Font name="DejaVu Sans" size="18" style="1"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="&#x10c;lanovi kluba"/>
+        <Property name="text" type="java.lang.String" value="Evidencija &#x10d;lanova"/>
       </Properties>
     </Component>
   </SubComponents>
