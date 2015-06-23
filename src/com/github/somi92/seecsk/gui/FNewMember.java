@@ -667,7 +667,7 @@ public class FNewMember extends javax.swing.JDialog {
 
     private void jbtnSacuvajClanarinuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnSacuvajClanarinuActionPerformed
         List<Uplata> uplataTabele = utm.vratiUplateTabele();
-        if(uplataTabele == null || uplataTabele.size()<1) {
+        if((uplataTabele == null || uplataTabele.size()<1) && (uplateBrisanje.size()<1)) {
             JOptionPane.showMessageDialog(this, "Morate uneti bar jednu uplatu.");
             return;
         }
@@ -683,10 +683,12 @@ public class FNewMember extends javax.swing.JDialog {
         ZahtevObjekat zo = new ZahtevObjekat();
         zo.setSistemskaOperacija(SistemskeOperacije.SO_ZAPAMTI_CLANARINE);
         zo.setParametar(uplataTabele);
+        zo.setUplateZaBrisanje(uplateBrisanje);
         ServerInstance.vratiInstancu().posaljiZahtev(zo);
         OdgovorObjekat oo = ServerInstance.vratiInstancu().vratiOdgovor();
         if(oo.getStatusOperacije()==0) {
             JOptionPane.showMessageDialog(this, "Sistem je uspešno zapamtio nove uplate članarine.");
+            caller.azurirajTabelu();
         } else {
             JOptionPane.showMessageDialog(this, "Sistem ne može da zapamti nove uplate članarine.", "Greška", JOptionPane.ERROR_MESSAGE);
         }

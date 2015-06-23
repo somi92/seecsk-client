@@ -43,7 +43,7 @@ public class UplateTableModel2 extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 3;
+        return 4;
     }
 
     @Override
@@ -55,6 +55,8 @@ public class UplateTableModel2 extends AbstractTableModel {
                 return "Datum uplate";
             case 2:
                 return "Član";
+            case 3:
+                return "Broj LK";
             default:
                 return "Greška";
         }
@@ -70,6 +72,8 @@ public class UplateTableModel2 extends AbstractTableModel {
                 return new SimpleDateFormat("dd/MM/yyyy").format(u.getDatumUplate());
             case 2:
                 return u.getClan().getImePrezime()+"";
+            case 3:
+                return u.getClan().getBrojLK()+"";
             default:
                 return "Greška";
         }
